@@ -1,0 +1,3 @@
+include ':nakedshort'
+include ':app'
+rootProject.name = "ShortFork"
