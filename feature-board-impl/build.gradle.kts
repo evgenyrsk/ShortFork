@@ -1,45 +1,18 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
 }
 
 android {
     compileSdkVersion(AppConfig.compileSdkVersion)
     buildToolsVersion(AppConfig.buildToolsVersion)
-
-    defaultConfig {
-        applicationId(AppConfig.applicationId)
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
-        versionCode(AppConfig.versionCode)
-        versionName(AppConfig.versionName)
-
-        testInstrumentationRunner(AppConfig.androidTestInstrumentation)
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
-    implementation(project(":core-network-impl"))
+    implementation(project(":core-android"))
     implementation(project(":core-network-api"))
+    implementation(project(":feature-board-api"))
 
     implementation(Dependencies.Kotlin.kotlin_std)
 
@@ -53,8 +26,14 @@ dependencies {
     implementation(Dependencies.CoreLibs.gson)
     implementation(Dependencies.CoreLibs.coroutines)
 
+    implementation(Dependencies.NetworkLibs.okHttp)
+    implementation(Dependencies.NetworkLibs.retrofit)
+    implementation(Dependencies.NetworkLibs.retrofitConverterGson)
+
+    api(Dependencies.CoreLibs.dagger)
+    kapt(Dependencies.CoreLibs.daggerCompiler)
+
     testImplementation(Dependencies.TestLibs.jUnit)
-    testImplementation(Dependencies.CoreLibs.jsoup)
 
     androidTestImplementation(Dependencies.TestLibs.jUnitExt)
     androidTestImplementation(Dependencies.TestLibs.espresso)

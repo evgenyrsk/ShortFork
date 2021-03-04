@@ -1,8 +1,8 @@
 package com.evgenyrsk.shortfork
 
+import com.evgenyrsk.core.data.api.ShortSqueezeHtmlDocumentParser
+import org.jsoup.Jsoup
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -10,8 +10,13 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+    private val parser: ShortSqueezeHtmlDocumentParser = ShortSqueezeHtmlDocumentParser()
+
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val document = Jsoup.connect("https://shortsqueeze.com/?symbol=NOK").get() ?: return
+
+        parser.parse(document)
     }
 }
