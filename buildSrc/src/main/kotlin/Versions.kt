@@ -22,7 +22,7 @@ object Versions {
     const val okHttp = "4.9.0"
 
     // coroutines
-    const val coroutines = "1.3.5"
+    const val coroutines = "1.4.3"
 
     // di
     const val dagger = "2.32"

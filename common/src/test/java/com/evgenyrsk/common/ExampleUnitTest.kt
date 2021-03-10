@@ -1,4 +1,4 @@
-package com.evgenyrsk.shortfork
+package com.evgenyrsk.common
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

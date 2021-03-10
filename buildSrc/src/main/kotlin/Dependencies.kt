@@ -23,6 +23,7 @@ object Dependencies {
         const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+        const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
         const val gson = "com.google.code.gson:gson:${Versions.gson}"
         const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
