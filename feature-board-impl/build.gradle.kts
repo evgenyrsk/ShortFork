@@ -11,8 +11,7 @@ android {
 
 dependencies {
     implementation(project(":core-android"))
-    implementation(project(":core-network-api"))
-    implementation(project(":feature-board-api"))
+    implementation(project(":core"))
 
     implementation(Dependencies.Kotlin.kotlin_std)
 

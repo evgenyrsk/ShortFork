@@ -38,9 +38,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-network-impl"))
-    implementation(project(":core-network-api"))
 
+    implementation(project(":core"))
     implementation(Dependencies.Kotlin.kotlin_std)
 
     implementation(Dependencies.CoreLibs.appCompat)

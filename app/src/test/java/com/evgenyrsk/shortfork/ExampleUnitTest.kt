@@ -1,6 +1,6 @@
 package com.evgenyrsk.shortfork
 
-import com.evgenyrsk.core.data.api.ShortSqueezeHtmlDocumentParser
+import com.evgenyrsk.core.shortsqueeze.data.ShortSqueezeHtmlDocumentParser
 import org.jsoup.Jsoup
 import org.junit.Test
 
