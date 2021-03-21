@@ -1,7 +1,6 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
 }
 
@@ -10,23 +9,12 @@ android {
     buildToolsVersion(AppConfig.buildToolsVersion)
 
     defaultConfig {
-        applicationId(AppConfig.applicationId)
         minSdkVersion(AppConfig.minSdkVersion)
         targetSdkVersion(AppConfig.targetSdkVersion)
         versionCode(AppConfig.versionCode)
         versionName(AppConfig.versionName)
 
         testInstrumentationRunner(AppConfig.androidTestInstrumentation)
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
     buildFeatures {
         viewBinding = true
@@ -41,9 +29,8 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core"))
-    implementation(project(":feature-aggregator"))
+    implementation(project(":core-android"))
 
     implementation(Dependencies.Kotlin.kotlin_std)
 
@@ -53,18 +40,23 @@ dependencies {
     implementation(Dependencies.CoreLibs.constraintLayout)
     implementation(Dependencies.CoreLibs.navigationFragment)
     implementation(Dependencies.CoreLibs.navigationUi)
+    implementation(Dependencies.CoreLibs.viewModelSavedState)
 
     implementation(Dependencies.CoreLibs.gson)
     implementation(Dependencies.CoreLibs.coroutines)
+
     implementation(Dependencies.NetworkLibs.okHttp)
     implementation(Dependencies.NetworkLibs.retrofit)
     implementation(Dependencies.NetworkLibs.retrofitConverterGson)
+    implementation(Dependencies.NetworkLibs.jsoup)
 
-    implementation(Dependencies.CoreLibs.dagger)
+    api(Dependencies.CoreLibs.dagger)
     kapt(Dependencies.CoreLibs.daggerCompiler)
 
     testImplementation(Dependencies.TestLibs.jUnit)
 
     androidTestImplementation(Dependencies.TestLibs.jUnitExt)
     androidTestImplementation(Dependencies.TestLibs.espresso)
+    //    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    //    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 }

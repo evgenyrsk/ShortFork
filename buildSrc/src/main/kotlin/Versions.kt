@@ -9,7 +9,7 @@ object Versions {
     // core
     const val core = "1.3.2"
     const val appCompat = "1.1.0"
-    const val meterial = "1.1.0"
+    const val material = "1.3.0"
     const val recyclerView = "1.1.0"
     const val constraintLayout = "1.1.3"
     const val lifecycle = "2.2.0"

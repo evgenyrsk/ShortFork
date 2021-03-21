@@ -16,8 +16,10 @@ object Dependencies {
     object CoreLibs {
         const val core = "androidx.core:core-ktx:${Versions.core}"
         const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
-        const val material = "com.google.android.material:material:${Versions.meterial}"
+        const val material = "com.google.android.material:material:${Versions.material}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+
+        const val viewModelSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
 
         const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
         const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
@@ -26,17 +28,17 @@ object Dependencies {
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
         const val gson = "com.google.code.gson:gson:${Versions.gson}"
-        const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
 
         const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     }
 
     object NetworkLibs {
-        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-        const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-        const val retrofitAdapterRxJava = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+        const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
         const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val retrofitAdapterRxJava = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+        const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     }
 
     object TestLibs {
