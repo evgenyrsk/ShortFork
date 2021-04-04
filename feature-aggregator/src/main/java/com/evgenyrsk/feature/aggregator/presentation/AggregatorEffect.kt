@@ -6,6 +6,6 @@ import com.evgenyrsk.core.presentation.mvi.UiEffect
  * @author Evgeny Rasskazov
  */
 sealed class AggregatorEffect : UiEffect {
-    object ShowData : AggregatorEffect()
+    object ShowSnakeBar : AggregatorEffect()
     object ShowToast : AggregatorEffect()
 }

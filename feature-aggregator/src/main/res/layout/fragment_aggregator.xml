@@ -40,4 +40,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="@color/design_default_color_secondary"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:layout_constraintStart_toStartOf="@id/tickerInput"
+        app:layout_constraintTop_toBottomOf="@id/acceptButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

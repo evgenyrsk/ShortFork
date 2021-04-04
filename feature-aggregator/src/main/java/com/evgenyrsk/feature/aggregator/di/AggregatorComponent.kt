@@ -1,6 +1,9 @@
 package com.evgenyrsk.feature.aggregator.di
 
 import com.evgenyrsk.core.dagger.FeatureScope
+import com.evgenyrsk.feature.aggregator.di.module.AggregatorDataModule
+import com.evgenyrsk.feature.aggregator.di.module.AggregatorServiceModule
+import com.evgenyrsk.feature.aggregator.di.module.AggregatorViewModelModule
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorFragment
 import dagger.Component
 
@@ -10,8 +13,7 @@ import dagger.Component
 @FeatureScope
 @Component(
     modules = [
-        AggregatorRepositoryModule::class,
-        AggregatorDataSourceModule::class,
+        AggregatorDataModule::class,
         AggregatorServiceModule::class,
         AggregatorViewModelModule::class
     ],

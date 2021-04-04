@@ -12,7 +12,7 @@ object Versions {
     const val material = "1.3.0"
     const val recyclerView = "1.1.0"
     const val constraintLayout = "1.1.3"
-    const val lifecycle = "2.2.0"
+    const val lifecycle = "2.3.1"
     const val navigation = "2.2.2"
     const val gson = "2.8.6"
     const val jsoup = "1.11.1"

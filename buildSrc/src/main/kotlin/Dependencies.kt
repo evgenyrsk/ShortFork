@@ -4,7 +4,6 @@
 object Dependencies {
 
     object Kotlin {
-        const val kotlin_std7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
         const val kotlin_std = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     }
 

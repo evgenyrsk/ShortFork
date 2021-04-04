@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -23,41 +21,41 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<EVENT : UiEvent, STATE : UiState, EFFECT : UiEffect> : ViewModel() {
 
     val currentState: STATE
-        get() = uiState().value
+        get() = uiState.value
 
     private val initialState: STATE by lazy { createInitialState() }
 
-    private val uiState: MutableStateFlow<STATE> = MutableStateFlow(initialState)
-    private val event: MutableSharedFlow<EVENT> = MutableSharedFlow()
-    private val effect: Channel<EFFECT> = Channel()
+    private val _uiState: MutableStateFlow<STATE> = MutableStateFlow(initialState)
+    val uiState: StateFlow<STATE> = _uiState
+
+    private val _event: MutableSharedFlow<EVENT> = MutableSharedFlow()
+    val event: SharedFlow<EVENT> = _event
+
+    private val _effect: Channel<EFFECT> = Channel()
+    val effect: Flow<EFFECT>
+        get() = _effect.receiveAsFlow()
 
     init {
         subscribeEvents()
     }
 
-    fun uiState(): StateFlow<STATE> = uiState.asStateFlow()
-
-    fun event(): SharedFlow<EVENT> = event.asSharedFlow()
-
-    fun effect(): Flow<EFFECT> = effect.receiveAsFlow()
-
     fun setState(reduce: STATE.() -> STATE) {
         val newState = currentState.reduce()
-        uiState.value = newState
+        _uiState.value = newState
     }
 
     fun setEvent(newEvent: EVENT) {
-        viewModelScope.launch { event.emit(newEvent) }
+        viewModelScope.launch { _event.emit(newEvent) }
     }
 
     fun setEffect(builder: () -> EFFECT) {
         val newEffect = builder()
-        viewModelScope.launch { effect.send(newEffect) }
+        viewModelScope.launch { _effect.send(newEffect) }
     }
 
     private fun subscribeEvents() {
         viewModelScope.launch {
-            event.collect {
+            _event.collect {
                 handleEvent(it)
             }
         }

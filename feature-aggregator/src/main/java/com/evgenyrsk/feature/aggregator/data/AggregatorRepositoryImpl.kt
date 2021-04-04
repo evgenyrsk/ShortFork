@@ -8,15 +8,10 @@ import javax.inject.Inject
  * @author Evgeny Rasskazov
  */
 class AggregatorRepositoryImpl @Inject constructor(
-    private val nakedShortDataSource: NakedShortDataSource,
-    private val shortSqueezeDataSource: ShortSqueezeDataSource
+    private val aggregatorRemoteDataSource: RemoteDataSource<AggregatorApiModel>
 ) : AggregatorRepository {
 
-    override suspend fun getShortStockDataHistory(companyTicker: String): ApiResponse<NakedShortApiModel> {
-        return nakedShortDataSource.getShortData(companyTicker)
-    }
-
-    override suspend fun getShortSqueezeData(companyTicker: String): ApiResponse<ShortSqueezeApiModel> {
-        return shortSqueezeDataSource.getShortData(companyTicker)
+    override suspend fun getShortForkData(companyTicker: String): ApiResponse<AggregatorApiModel> {
+        return aggregatorRemoteDataSource.getShortData(companyTicker)
     }
 }

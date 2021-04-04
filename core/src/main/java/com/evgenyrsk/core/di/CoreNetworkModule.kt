@@ -1,5 +1,6 @@
 package com.evgenyrsk.core.di
 
+import com.evgenyrsk.core.data.ApiConst
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -25,6 +26,7 @@ class CoreNetworkModule {
     fun provideRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .client(okHttpClient)
+            .baseUrl(ApiConst.SHORT_FORK_URL)
             .addConverterFactory(GsonConverterFactory.create())
     }
 }

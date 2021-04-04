@@ -12,7 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.feature.aggregator.databinding.FragmentAggregatorBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 /**
@@ -50,39 +51,35 @@ class AggregatorFragment : Fragment() {
     }
 
     private fun initObservers() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.uiState().collect { state ->
-                when (state.shortInfoState) {
-                    is ShortInfoState.Idle -> {
-                        binding.progressBar.hide()
-                    }
-                    is ShortInfoState.Loading -> {
-                        binding.progressBar.show()
-                    }
-                    is ShortInfoState.Loaded -> {
-                        binding.progressBar.hide()
-                        Log.d("RESULT_RESULT", "result: ${state.shortInfoState.model.ticker}")
-                    }
+        viewModel.uiState.onEach { state ->
+            when (state.shortInfoState) {
+                is ShortInfoState.Idle -> {
+                    binding.progressBar.hide()
+                }
+                is ShortInfoState.Loading -> {
+                    binding.progressBar.show()
+                }
+                is ShortInfoState.Loaded -> {
+                    binding.progressBar.hide()
+                    Log.d("RESULT_RESULT", "result: ${state.shortInfoState.model.ticker}")
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.effect().collect { effect ->
-                when (effect) {
-                    is AggregatorEffect.ShowToast -> {
-                        binding.progressBar.hide()
-                        Toast.makeText(
-                            this@AggregatorFragment.requireContext(),
-                            "ERROR",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is AggregatorEffect.ShowData -> {
-
-                    }
+        viewModel.effect.onEach { effect ->
+            when (effect) {
+                is AggregatorEffect.ShowToast -> {
+                    binding.progressBar.hide()
+                    Toast.makeText(
+                        this@AggregatorFragment.requireContext(),
+                        "ERROR",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is AggregatorEffect.ShowSnakeBar -> {
+                    // todo
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 }
