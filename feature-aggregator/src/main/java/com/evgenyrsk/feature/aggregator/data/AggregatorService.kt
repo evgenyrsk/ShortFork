@@ -9,8 +9,23 @@ import retrofit2.http.Query
  */
 interface AggregatorService {
 
-    @GET("/stocks?")
-    suspend fun getShortData(
+    @GET("/stocks")
+    suspend fun getAllData(
         @Query(value = "ticker") ticker: String
-    ): Response<AggregatorApiModel>
+    ): Response<NetworkModel>
+
+    @GET("/stocks/nakedshort")
+    suspend fun getNakedShortData(
+        @Query(value = "ticker") ticker: String
+    ): Response<NakedShortNetworkModel>
+
+    @GET("/stocks/finviz")
+    suspend fun getFinVizData(
+        @Query(value = "ticker") ticker: String
+    ): Response<FinVizNetworkModel>
+
+    @GET("/stocks/shortsqueeze")
+    suspend fun getShortSqueezeData(
+        @Query(value = "ticker") ticker: String
+    ): Response<ShortSqueezeNetworkModel>
 }

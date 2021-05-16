@@ -16,8 +16,8 @@ data class AggregatorDomainModel(
     )
 
     data class ChartData(
-        val overallVolumes: List<Long>,
-        val shortVolumes: List<Long>,
+        val overallVolumes: List<Int>,
+        val shortVolumes: List<Int>,
         val dates: List<String>
     )
 

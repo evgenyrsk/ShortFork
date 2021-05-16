@@ -1,6 +1,5 @@
 package com.evgenyrsk.feature.aggregator.di.module
 
-import com.evgenyrsk.feature.aggregator.data.AggregatorApiModel
 import com.evgenyrsk.feature.aggregator.data.AggregatorRemoteDataSource
 import com.evgenyrsk.feature.aggregator.data.AggregatorRepositoryImpl
 import com.evgenyrsk.feature.aggregator.data.RemoteDataSource
@@ -18,5 +17,5 @@ interface AggregatorDataModule {
     fun bindAggregatorRepository(impl: AggregatorRepositoryImpl): AggregatorRepository
 
     @Binds
-    fun bindAggregatorRemoteDataSource(impl: AggregatorRemoteDataSource): RemoteDataSource<AggregatorApiModel>
+    fun bindAggregatorRemoteDataSource(impl: AggregatorRemoteDataSource): RemoteDataSource
 }

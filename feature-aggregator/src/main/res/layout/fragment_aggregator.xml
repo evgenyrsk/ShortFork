@@ -4,29 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_light_background"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/tickerInput"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="textCapCharacters"
-        android:paddingTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/acceptButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:paddingHorizontal="16dp"
-        android:text="Choose"
-        app:layout_constraintStart_toEndOf="@id/tickerInput"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@color/background"
+    android:theme="@style/ShortFork">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
@@ -40,14 +19,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        app:cardBackgroundColor="@color/design_default_color_secondary"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:layout_constraintStart_toStartOf="@id/tickerInput"
-        app:layout_constraintTop_toBottomOf="@id/acceptButton" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

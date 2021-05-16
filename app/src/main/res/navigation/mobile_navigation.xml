@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.evgenyrsk.feature.aggregator.presentation.AggregatorFragment"
+        android:name="com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_aggregator" />
 
