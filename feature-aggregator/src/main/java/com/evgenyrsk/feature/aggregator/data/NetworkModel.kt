@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
  *
  * Network DTO.
  */
+// TODO need to actualize network DTO
 data class NetworkModel(
 
     @SerializedName("ticker")

@@ -3,7 +3,6 @@ package com.evgenyrsk.feature.aggregator.domain
 import com.evgenyrsk.core.data.ApiResponse
 import com.evgenyrsk.feature.aggregator.data.FinVizNetworkModel
 import com.evgenyrsk.feature.aggregator.data.NakedShortNetworkModel
-import com.evgenyrsk.feature.aggregator.data.NetworkModel
 import com.evgenyrsk.feature.aggregator.data.ShortSqueezeNetworkModel
 
 /**
@@ -11,7 +10,7 @@ import com.evgenyrsk.feature.aggregator.data.ShortSqueezeNetworkModel
  */
 interface AggregatorRepository {
 
-    suspend fun getAllData(companyTicker: String): ApiResponse<NetworkModel>
+    suspend fun getAllData(companyTicker: String): Result<AggregatorDomainModel>
 
     suspend fun getNakedShortData(companyTicker: String): ApiResponse<NakedShortNetworkModel>
 

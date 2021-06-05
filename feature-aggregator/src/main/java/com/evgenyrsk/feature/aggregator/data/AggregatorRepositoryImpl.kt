@@ -1,18 +1,28 @@
 package com.evgenyrsk.feature.aggregator.data
 
 import com.evgenyrsk.core.data.ApiResponse
+import com.evgenyrsk.core.data.ErrorHandler
+import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModel
+import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModelMapper
 import com.evgenyrsk.feature.aggregator.domain.AggregatorRepository
+import com.evgenyrsk.feature.aggregator.domain.Result
 import javax.inject.Inject
 
 /**
  * @author Evgeny Rasskazov
  */
 class AggregatorRepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val apiErrorHandler: ErrorHandler
 ) : AggregatorRepository {
 
-    override suspend fun getAllData(companyTicker: String): ApiResponse<NetworkModel> {
-        return remoteDataSource.getAllShortData(companyTicker)
+    private val mapper: AggregatorDomainModelMapper<NetworkModel> by lazy { AggregatorDomainModelMapperImpl() }
+
+    override suspend fun getAllData(companyTicker: String): Result<AggregatorDomainModel> {
+        return when (remoteDataSource.getAllShortData(companyTicker)) {
+            is ApiResponse.Success -> Result.Success(mapper.map(response.data))
+            is ApiResponse.Error -> Result.Error(apiErrorHandler.getError(response.exception))
+        }
     }
 
     override suspend fun getNakedShortData(companyTicker: String): ApiResponse<NakedShortNetworkModel> {

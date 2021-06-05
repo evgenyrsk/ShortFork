@@ -1,17 +1,17 @@
 package com.evgenyrsk.feature.aggregator.presentation
 
 import com.evgenyrsk.core.presentation.mvi.UiState
-import com.evgenyrsk.feature.aggregator.presentation.model.ShortInfoModel
+import com.evgenyrsk.feature.aggregator.presentation.model.IndicatorsModel
 
 /**
  * @author Evgeny Rasskazov
  */
 data class AggregatorState(
-    val shortInfoState: ShortInfoState
+    val indicatorsInfoState: IndicatorsInfoState
 ) : UiState
 
-sealed class ShortInfoState {
-    object Idle : ShortInfoState()
-    object Loading : ShortInfoState()
-    data class Loaded(val model: ShortInfoModel) : ShortInfoState()
+sealed class IndicatorsInfoState {
+    object Idle : IndicatorsInfoState()
+    object Loading : IndicatorsInfoState()
+    data class Loaded(val model: IndicatorsModel) : IndicatorsInfoState()
 }

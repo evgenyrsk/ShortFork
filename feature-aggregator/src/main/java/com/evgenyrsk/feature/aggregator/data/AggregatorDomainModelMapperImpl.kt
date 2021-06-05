@@ -1,13 +1,14 @@
-package com.evgenyrsk.feature.aggregator.domain
+package com.evgenyrsk.feature.aggregator.data
 
-import com.evgenyrsk.feature.aggregator.data.NetworkModel
+import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModel
+import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModelMapper
 
 /**
  * @author Evgeny Rasskazov
  */
-class AggregatorModelMapper {
+class AggregatorDomainModelMapperImpl : AggregatorDomainModelMapper<NetworkModel> {
 
-    fun toDomainModel(networkModel: NetworkModel): AggregatorDomainModel = with(networkModel) {
+    override fun map(networkModel: NetworkModel): AggregatorDomainModel = with(networkModel) {
         AggregatorDomainModel(
             mainCompanyInfo = AggregatorDomainModel.MainCompanyInfo(
                 ticker = ticker,
@@ -26,7 +27,9 @@ class AggregatorModelMapper {
                 pe = finViz.pe,
                 ps = finViz.ps,
                 pb = finViz.pb,
+                peg = finViz.peg,
                 roe = finViz.roe,
+                roa = finViz.roa,
                 rsi = finViz.rsi,
                 debtEq = finViz.debtEq,
                 currentNakedShortVolume = nakedShort.currentShortVolume,

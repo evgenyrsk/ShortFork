@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
 import com.evgenyrsk.feature.aggregator.domain.GetShortDataUseCase
 import com.evgenyrsk.feature.aggregator.domain.Result
-import com.evgenyrsk.feature.aggregator.presentation.model.ShortInfoModel
+import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsModelMapper
 import kotlinx.coroutines.launch
 
 /**
@@ -16,7 +16,9 @@ class AggregatorViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel<AggregatorEvent, AggregatorState, AggregatorEffect>() {
 
-    override fun createInitialState(): AggregatorState = AggregatorState(ShortInfoState.Idle)
+    private val mapper: IndicatorsModelMapper = IndicatorsModelMapper()
+
+    override fun createInitialState(): AggregatorState = AggregatorState(IndicatorsInfoState.Idle)
 
     override fun handleEvent(event: AggregatorEvent) {
         when (event) {
@@ -26,18 +28,18 @@ class AggregatorViewModel(
 
     private fun loadShortData(companyTicker: String) {
         viewModelScope.launch {
-            setState { copy(shortInfoState = ShortInfoState.Loading) }
+            setState { copy(indicatorsInfoState = IndicatorsInfoState.Loading) }
             when (val result = getShortDataUseCase.invoke(companyTicker)) {
                 is Result.Success ->
                     setState {
                         copy(
-                            shortInfoState = ShortInfoState.Loaded(
-                                ShortInfoModel(result.data.mainCompanyInfo.ticker)
+                            indicatorsInfoState = IndicatorsInfoState.Loaded(
+                                mapper.toUiModel(companyTicker, result.data.technicalIndicators)
                             )
                         )
                     }
                 is Result.Error -> {
-                    setState { copy(shortInfoState = ShortInfoState.Idle) }
+                    setState { copy(indicatorsInfoState = IndicatorsInfoState.Idle) }
                     setEffect { AggregatorEffect.ShowToast }
                 }
             }

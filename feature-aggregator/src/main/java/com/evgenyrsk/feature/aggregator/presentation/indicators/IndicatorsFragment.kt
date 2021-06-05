@@ -14,7 +14,7 @@ import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorEffect
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModel
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModelFactory
-import com.evgenyrsk.feature.aggregator.presentation.ShortInfoState
+import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -51,18 +51,18 @@ class IndicatorsFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.uiState.onEach { state ->
-            when (state.shortInfoState) {
-                is ShortInfoState.Idle -> {
+            when (state.indicatorsInfoState) {
+                is IndicatorsInfoState.Idle -> {
                     binding.progressBar.hide()
                 }
-                is ShortInfoState.Loading -> {
+                is IndicatorsInfoState.Loading -> {
                     binding.progressBar.show()
                 }
-                is ShortInfoState.Loaded -> {
+                is IndicatorsInfoState.Loaded -> {
                     binding.progressBar.hide()
                     Toast.makeText(
                         requireContext(),
-                        "Result: ${state.shortInfoState.model.ticker}",
+                        "Result: ${state.indicatorsInfoState.model}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
