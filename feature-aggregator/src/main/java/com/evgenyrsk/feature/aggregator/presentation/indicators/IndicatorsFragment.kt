@@ -30,6 +30,11 @@ class IndicatorsFragment : Fragment() {
     private val viewModel: AggregatorViewModel by activityViewModels {
         GenericSavedStateViewModelFactory(viewModelFactory, requireActivity())
     }
+    private val recyclerAdapter: IndicatorsListAdapter by lazy {
+        IndicatorsListAdapter { indicatorItem ->
+            Toast.makeText(requireContext(), indicatorItem.name, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private lateinit var binding: FragmentAggregatorBinding
 
@@ -46,6 +51,8 @@ class IndicatorsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.recycler.adapter = recyclerAdapter
+
         initObservers()
     }
 
@@ -60,11 +67,7 @@ class IndicatorsFragment : Fragment() {
                 }
                 is IndicatorsInfoState.Loaded -> {
                     binding.progressBar.hide()
-                    Toast.makeText(
-                        requireContext(),
-                        "Result: ${state.indicatorsInfoState.model}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    recyclerAdapter.itemsList = state.indicatorsInfoState.model.indicators
                 }
             }
         }.launchIn(lifecycleScope)

@@ -12,32 +12,33 @@ class AggregatorDomainModelMapperImpl : AggregatorDomainModelMapper<NetworkModel
         AggregatorDomainModel(
             mainCompanyInfo = AggregatorDomainModel.MainCompanyInfo(
                 ticker = ticker,
-                name = finViz.name,
-                siteUrl = finViz.site
+                name = finViz?.name ?: "",
+                siteUrl = finViz?.site ?: ""
             ),
-            chartData = with(nakedShort.chart.first()) {
+            chartData = nakedShort?.chart?.first()?.let {
                 AggregatorDomainModel.ChartData(
-                    overallVolumes = regularVolumes,
-                    shortVolumes = shortVolumes,
-                    dates = dates
+                    overallVolumes = it.regularVolumes,
+                    shortVolumes = it.shortVolumes,
+                    dates = it.dates
                 )
             },
             technicalIndicators = AggregatorDomainModel.TechnicalIndicators(
-                priceInDollars = finViz.price,
-                pe = finViz.pe,
-                ps = finViz.ps,
-                pb = finViz.pb,
-                peg = finViz.peg,
-                roe = finViz.roe,
-                roa = finViz.roa,
-                rsi = finViz.rsi,
-                debtEq = finViz.debtEq,
-                currentNakedShortVolume = nakedShort.currentShortVolume,
-                squeezeShortFloat = shortSqueeze.shortFlow,
-                finVizShortFloat = finViz.shortFlow,
-                finVizRecommendation = finViz.recommendation,
-                isAvailableOnTinkoff = isAvailableInTinkoff,
-                targetPriceUpside = finViz.targetPrice
+                priceInDollars = finViz?.price,
+                pe = finViz?.pe,
+                ps = finViz?.ps,
+                pb = finViz?.pb,
+                peg = finViz?.peg,
+                roe = finViz?.roe,
+                roa = finViz?.roa,
+                rsi = finViz?.rsi,
+                debtEq = finViz?.debtEq,
+                dividendsPercent = finViz?.dividendPercent,
+                currentNakedShortVolume = nakedShort?.currentShortVolume,
+                squeezeShortFloat = shortSqueeze?.shortFlow,
+                finVizShortFloat = finViz?.shortFlow,
+                finVizRecommendation = finViz?.recommendation,
+                isAvailableOnTinkoff = isAvailableInTinkoff ?: false,
+                targetPriceUpside = finViz?.targetPrice
             )
         )
     }

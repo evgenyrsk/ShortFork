@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.presentation.indicators
+package com.evgenyrsk.feature.aggregator.presentation.indicators.model
 
 import com.evgenyrsk.core.presentation.mvi.UiState
 import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState

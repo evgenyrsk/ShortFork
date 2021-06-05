@@ -4,6 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
 import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsEffect
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsEvent
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsState
 import kotlinx.coroutines.launch
 
 /**

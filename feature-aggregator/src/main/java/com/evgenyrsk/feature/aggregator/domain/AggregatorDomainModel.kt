@@ -5,7 +5,7 @@ package com.evgenyrsk.feature.aggregator.domain
  */
 data class AggregatorDomainModel(
     val mainCompanyInfo: MainCompanyInfo,
-    val chartData: ChartData,
+    val chartData: ChartData? = null,
     val technicalIndicators: TechnicalIndicators
 ) {
 

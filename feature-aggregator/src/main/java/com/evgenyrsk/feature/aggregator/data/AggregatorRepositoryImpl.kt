@@ -19,7 +19,7 @@ class AggregatorRepositoryImpl @Inject constructor(
     private val mapper: AggregatorDomainModelMapper<NetworkModel> by lazy { AggregatorDomainModelMapperImpl() }
 
     override suspend fun getAllData(companyTicker: String): Result<AggregatorDomainModel> {
-        return when (remoteDataSource.getAllShortData(companyTicker)) {
+        return when (val response = remoteDataSource.getAllShortData(companyTicker)) {
             is ApiResponse.Success -> Result.Success(mapper.map(response.data))
             is ApiResponse.Error -> Result.Error(apiErrorHandler.getError(response.exception))
         }

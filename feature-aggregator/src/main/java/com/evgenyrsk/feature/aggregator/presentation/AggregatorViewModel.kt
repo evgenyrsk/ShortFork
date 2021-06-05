@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
 import com.evgenyrsk.feature.aggregator.domain.GetShortDataUseCase
 import com.evgenyrsk.feature.aggregator.domain.Result
-import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsModelMapper
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsModelMapper
 import kotlinx.coroutines.launch
 
 /**

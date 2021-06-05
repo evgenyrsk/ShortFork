@@ -14,14 +14,14 @@ data class NetworkModel(
     val ticker: String,
 
     @SerializedName("finviz")
-    val finViz: FinVizNetworkModel,
+    val finViz: FinVizNetworkModel?,
 
     @SerializedName("nakedshort")
-    val nakedShort: NakedShortNetworkModel,
+    val nakedShort: NakedShortNetworkModel?,
 
     @SerializedName("shortsqueeze")
-    val shortSqueeze: ShortSqueezeNetworkModel,
+    val shortSqueeze: ShortSqueezeNetworkModel?,
 
     @SerializedName("tinkoff")
-    val isAvailableInTinkoff: Boolean
+    val isAvailableInTinkoff: Boolean?
 )
