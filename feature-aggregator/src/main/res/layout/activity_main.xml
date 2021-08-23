@@ -9,20 +9,21 @@
         android:id="@+id/app_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
+        android:background="@color/light_green_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize" />
+        <include
+            android:id="@+id/search_view"
+            layout="@layout/search_view" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:tabIndicatorColor="@color/black"
             app:tabTextColor="@color/text_primary" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,4 +34,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

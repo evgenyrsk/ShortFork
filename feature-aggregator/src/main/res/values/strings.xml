@@ -9,7 +9,7 @@
     <string name="tab_technical_analysis">Анализ</string>
 
     <string name="search">Поиск</string>
-    <string name="search_hint">Введите тикер</string>
+    <string name="search_hint">Введите тикер…</string>
 
     <string name="content_description_search">search</string>
     <string name="ticker">Тикер</string>

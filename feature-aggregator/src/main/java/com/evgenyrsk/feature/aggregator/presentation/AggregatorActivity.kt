@@ -1,10 +1,12 @@
 package com.evgenyrsk.feature.aggregator.presentation
 
-import android.app.SearchManager
-import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
-import android.view.Menu
-import android.widget.SearchView
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -14,43 +16,62 @@ import androidx.viewpager2.widget.ViewPager2
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ActivityMainBinding
+import com.evgenyrsk.feature.aggregator.databinding.SearchViewBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
-import kotlin.math.abs
 
 class AggregatorActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: AggregatorViewModelFactory
 
-    private val viewBinding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: AggregatorViewModel by viewModels {
         GenericSavedStateViewModelFactory(viewModelFactory, this)
     }
 
-    private val animator: ViewPager2.PageTransformer = ViewPager2.PageTransformer { page, position ->
-        val absPos = abs(position)
-        page.apply {
-            rotation = position * 360
-            translationY = absPos * 500f
-            translationX = 0f
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AggregatorComponentHolder.get().inject(this)
+
+        with(ActivityMainBinding.inflate(layoutInflater)) {
+            setContentView(root)
+            initSearchView(searchView)
+            initViewPagerWithTabs(viewPager, tabs)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v: View? = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    hideKeyboardAndClearFocus(v)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
 
-        AggregatorComponentHolder.get().inject(this)
+    private fun initSearchView(searchView: SearchViewBinding) {
+        searchView.enterTickerNameField.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val enteredTickerText = searchView.enterTickerNameField.text.toString()
+                viewModel.setEvent(AggregatorEvent.OnSubmitTickerButtonClicked(enteredTickerText))
+                hideKeyboardAndClearFocus(v as EditText)
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+    }
 
-        setContentView(viewBinding.root)
-        setSupportActionBar(viewBinding.toolbar)
-        viewBinding.toolbar.setTitle(R.string.app_name)
-
-        viewBinding.viewPager.adapter = ViewPagerFragmentAdapter(this)
-
-        TabLayoutMediator(viewBinding.tabs, viewBinding.viewPager) { tab, position ->
+    private fun initViewPagerWithTabs(viewPager: ViewPager2, tabLayout: TabLayout) {
+        viewPager.adapter = ViewPagerFragmentAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.setText(R.string.tab_technical_indicators)
                 1 -> tab.setText(R.string.tab_technical_analysis)
@@ -58,43 +79,25 @@ class AggregatorActivity : AppCompatActivity() {
         }.attach()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-
-        val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as? SearchView
-        searchView?.let {
-            it.setSearchableInfo(searchManager.getSearchableInfo(this.componentName))
-            it.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextChange(newText: String): Boolean {
-                    return true
-                }
-
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.setEvent(AggregatorEvent.OnSubmitTickerButtonClicked(query))
-                    return true
-                }
-            })
-        }
-
-        return super.onPrepareOptionsMenu(menu)
+    private fun hideKeyboardAndClearFocus(editText: EditText) {
+        editText.clearFocus()
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(editText.windowToken, 0)
     }
 
     class ViewPagerFragmentAdapter(host: FragmentActivity) : FragmentStateAdapter(host) {
 
-        override fun getItemCount(): Int = 2
+        override fun getItemCount(): Int = PAGES_COUNT
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> IndicatorsFragment()
                 else -> Fragment()
             }
+        }
+
+        private companion object {
+            const val PAGES_COUNT = 2
         }
     }
 }
