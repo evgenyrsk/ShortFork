@@ -34,7 +34,11 @@ class AggregatorViewModel(
                     setState {
                         copy(
                             indicatorsInfoState = IndicatorsInfoState.Loaded(
-                                mapper.toUiModel(companyTicker, result.data.technicalIndicators)
+                                mapper.toUiModel(
+                                    companyTicker,
+                                    result.data.mainCompanyInfo,
+                                    result.data.technicalIndicators
+                                )
                             )
                         )
                     }

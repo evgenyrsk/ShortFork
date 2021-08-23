@@ -9,8 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
@@ -21,6 +23,8 @@ import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class AggregatorActivity : AppCompatActivity() {
@@ -40,6 +44,18 @@ class AggregatorActivity : AppCompatActivity() {
             setContentView(root)
             initSearchView(searchView)
             initViewPagerWithTabs(viewPager, tabs)
+
+            companyInfoBlock.isVisible = false
+            viewModel.uiState.onEach { state ->
+                if (state.indicatorsInfoState is IndicatorsInfoState.Loaded) {
+                    //                    companyInfoBlock.alpha = 0.0f
+                    companyInfoBlock.isVisible = true
+                    //                    companyInfoBlock.animate().alpha(1.0f)
+                    val resultModel = state.indicatorsInfoState.model
+                    companyName.text = resultModel.companyName
+                    companySite.text = resultModel.companySiteUrl
+                }
+            }.launchIn(lifecycleScope)
         }
     }
 

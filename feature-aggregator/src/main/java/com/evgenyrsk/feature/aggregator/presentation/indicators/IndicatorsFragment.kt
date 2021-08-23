@@ -67,7 +67,7 @@ class IndicatorsFragment : Fragment() {
                 }
                 is IndicatorsInfoState.Loaded -> {
                     binding.progressBar.hide()
-                    recyclerAdapter.itemsList = state.indicatorsInfoState.model.indicators
+                    recyclerAdapter.submitList(state.indicatorsInfoState.model.indicators)
                 }
             }
         }.launchIn(lifecycleScope)

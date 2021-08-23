@@ -5,22 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ItemIndicatorInfoBinding
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorItem
-import kotlin.properties.Delegates
 
 /**
  * @author Evgeny Rasskazov
  */
 class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: IndicatorItem) -> Unit) :
-    RecyclerView.Adapter<IndicatorsListAdapter.ViewHolder>(),
+    ListAdapter<IndicatorItem, IndicatorsListAdapter.ViewHolder>(IndicatorItemDiffCallback()),
     OnViewHolderClickListener<IndicatorsListAdapter.ViewHolder> {
-
-    var itemsList: List<IndicatorItem> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
-        notifyChanges(oldValue, newValue)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,31 +26,11 @@ class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: Indic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(itemsList[position])
+        holder.bindTo(getItem(position))
     }
-
-    override fun getItemCount(): Int = itemsList.size
 
     override fun onViewHolderClick(view: View, holder: ViewHolder) {
-        indicatorHelpClickListener.invoke(itemsList[holder.adapterPosition])
-    }
-
-    private fun notifyChanges(oldList: List<IndicatorItem>, newList: List<IndicatorItem>) {
-        val differences = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-
-            override fun getOldListSize(): Int = oldList.size
-
-            override fun getNewListSize(): Int = newList.size
-
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return oldList[oldItemPosition].name == newList[newItemPosition].name
-            }
-
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return oldList[oldItemPosition] == newList[newItemPosition]
-            }
-        })
-        differences.dispatchUpdatesTo(this)
+        indicatorHelpClickListener.invoke(getItem(holder.adapterPosition))
     }
 
     class ViewHolder(
@@ -75,11 +51,22 @@ class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: Indic
             binding.value.text = item.readableValue
 
             val colorId = when (item.colouredValueIndicator) {
-                IndicatorItem.ColoredIndicator.GOOD -> R.color.light_green_500
-                IndicatorItem.ColoredIndicator.NEUTRAL -> R.color.yellow_500
-                IndicatorItem.ColoredIndicator.BAD -> R.color.red_500
+                IndicatorItem.Color.GOOD -> R.color.light_green_500
+                IndicatorItem.Color.NEUTRAL -> R.color.yellow_500
+                IndicatorItem.Color.BAD -> R.color.red_500
             }
             binding.valueColouredIndicator.setBackgroundColor(ContextCompat.getColor(itemView.context, colorId))
         }
+    }
+}
+
+class IndicatorItemDiffCallback : DiffUtil.ItemCallback<IndicatorItem>() {
+
+    override fun areItemsTheSame(oldItem: IndicatorItem, newItem: IndicatorItem): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: IndicatorItem, newItem: IndicatorItem): Boolean {
+        return oldItem.name == newItem.name
     }
 }

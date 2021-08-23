@@ -12,7 +12,7 @@ data class AggregatorDomainModel(
     data class MainCompanyInfo(
         val ticker: String,
         val name: String,
-        val siteUrl: String?
+        val siteUrl: String
     )
 
     data class ChartData(
