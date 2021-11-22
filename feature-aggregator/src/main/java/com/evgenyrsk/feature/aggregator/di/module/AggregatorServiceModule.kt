@@ -2,7 +2,7 @@ package com.evgenyrsk.feature.aggregator.di.module
 
 import com.evgenyrsk.core.data.ApiConst
 import com.evgenyrsk.core.di.createServiceWithBaseUrl
-import com.evgenyrsk.feature.aggregator.data.AggregatorService
+import com.evgenyrsk.feature.aggregator.data.remote.AggregatorService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

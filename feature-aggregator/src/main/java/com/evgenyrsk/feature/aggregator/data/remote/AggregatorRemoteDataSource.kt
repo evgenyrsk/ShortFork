@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.data
+package com.evgenyrsk.feature.aggregator.data.remote
 
 import com.evgenyrsk.core.data.ApiResponse
 import retrofit2.HttpException
@@ -12,7 +12,7 @@ class AggregatorRemoteDataSource @Inject constructor(
     private val service: AggregatorService
 ) : RemoteDataSource {
 
-    override suspend fun getAllShortData(companyTicker: String): ApiResponse<NetworkModel> {
+    override suspend fun getAllShortData(companyTicker: String): ApiResponse<AggregatorNetworkModel> {
         return try {
             service.getAllData(companyTicker).toApiResponse()
         } catch (e: HttpException) {

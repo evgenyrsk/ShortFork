@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.data
+package com.evgenyrsk.feature.aggregator.data.remote
 
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,7 +12,7 @@ interface AggregatorService {
     @GET("/stocks")
     suspend fun getAllData(
         @Query(value = "ticker") ticker: String
-    ): Response<NetworkModel>
+    ): Response<AggregatorNetworkModel>
 
     @GET("/stocks/nakedshort")
     suspend fun getNakedShortData(

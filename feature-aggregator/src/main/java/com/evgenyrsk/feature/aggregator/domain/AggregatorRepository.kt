@@ -1,9 +1,9 @@
 package com.evgenyrsk.feature.aggregator.domain
 
 import com.evgenyrsk.core.data.ApiResponse
-import com.evgenyrsk.feature.aggregator.data.FinVizNetworkModel
-import com.evgenyrsk.feature.aggregator.data.NakedShortNetworkModel
-import com.evgenyrsk.feature.aggregator.data.ShortSqueezeNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.FinVizNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.NakedShortNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.ShortSqueezeNetworkModel
 
 /**
  * @author Evgeny Rasskazov

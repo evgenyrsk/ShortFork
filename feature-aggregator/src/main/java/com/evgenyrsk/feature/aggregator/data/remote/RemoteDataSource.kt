@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.data
+package com.evgenyrsk.feature.aggregator.data.remote
 
 import com.evgenyrsk.core.data.ApiResponse
 
@@ -7,7 +7,7 @@ import com.evgenyrsk.core.data.ApiResponse
  */
 interface RemoteDataSource {
 
-    suspend fun getAllShortData(companyTicker: String): ApiResponse<NetworkModel>
+    suspend fun getAllShortData(companyTicker: String): ApiResponse<AggregatorNetworkModel>
 
     suspend fun getNakedShortData(companyTicker: String): ApiResponse<NakedShortNetworkModel>
 

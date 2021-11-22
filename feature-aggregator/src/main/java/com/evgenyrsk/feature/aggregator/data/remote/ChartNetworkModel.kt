@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.data
+package com.evgenyrsk.feature.aggregator.data.remote
 
 import com.google.gson.annotations.SerializedName
 

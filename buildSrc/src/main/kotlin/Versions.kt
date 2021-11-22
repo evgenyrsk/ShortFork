@@ -3,8 +3,8 @@
  */
 object Versions {
     // app
-    const val androidGradle = "4.1.2"
-    const val kotlin = "1.4.30"
+    const val androidGradle = "7.0.2"
+    const val kotlin = "1.5.21"
 
     // core
     const val core = "1.3.2"

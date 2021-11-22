@@ -6,17 +6,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AppConfig.compileSdkVersion)
-    buildToolsVersion(AppConfig.buildToolsVersion)
+    compileSdk = AppConfig.compileSdkVersion
+    buildToolsVersion = AppConfig.buildToolsVersion
 
     defaultConfig {
-        applicationId(AppConfig.applicationId)
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
-        versionCode(AppConfig.versionCode)
-        versionName(AppConfig.versionName)
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdkVersion
+        targetSdk = AppConfig.targetSdkVersion
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
-        testInstrumentationRunner(AppConfig.androidTestInstrumentation)
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
 
     buildTypes {
@@ -30,6 +30,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()

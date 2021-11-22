@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.data
+package com.evgenyrsk.feature.aggregator.data.remote
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * Network DTO.
  */
 // TODO need to actualize network DTO
-data class NetworkModel(
+data class AggregatorNetworkModel(
 
     @SerializedName("ticker")
     val ticker: String,

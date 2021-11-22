@@ -5,16 +5,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AppConfig.compileSdkVersion)
-    buildToolsVersion(AppConfig.buildToolsVersion)
+    compileSdk = AppConfig.compileSdkVersion
+    buildToolsVersion = AppConfig.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
-        versionCode(AppConfig.versionCode)
-        versionName(AppConfig.versionName)
+        minSdk = AppConfig.minSdkVersion
+        targetSdk = AppConfig.targetSdkVersion
 
-        testInstrumentationRunner(AppConfig.androidTestInstrumentation)
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
     buildFeatures {
         viewBinding = true
