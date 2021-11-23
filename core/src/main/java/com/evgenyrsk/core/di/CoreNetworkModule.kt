@@ -1,6 +1,8 @@
 package com.evgenyrsk.core.di
 
 import com.evgenyrsk.core.data.ApiConst
+import com.evgenyrsk.core.data.ApiErrorHandler
+import com.evgenyrsk.core.data.ErrorHandler
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -29,6 +31,10 @@ class CoreNetworkModule {
             .baseUrl(ApiConst.SHORT_FORK_URL)
             .addConverterFactory(GsonConverterFactory.create())
     }
+
+    @Provides
+    @Singleton
+    fun apiErrorHandler(): ErrorHandler = ApiErrorHandler()
 }
 
 fun <T> Retrofit.Builder.createServiceWithBaseUrl(baseUrl: String, serviceClass: Class<T>): T {

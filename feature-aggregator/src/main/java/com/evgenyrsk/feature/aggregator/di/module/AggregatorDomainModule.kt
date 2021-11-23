@@ -9,8 +9,8 @@ import dagger.Module
  * @author Evgeny Rasskazov
  */
 @Module
-interface AggregatorDomainModule {
+internal interface AggregatorDomainModule {
 
     @Binds
-    fun bindGetShortDataUseCase(impl: GetShortDataUseCaseImpl): GetShortDataUseCase
+    fun getShortDataUseCase(impl: GetShortDataUseCaseImpl): GetShortDataUseCase
 }

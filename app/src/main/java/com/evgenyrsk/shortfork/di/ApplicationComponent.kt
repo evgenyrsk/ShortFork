@@ -1,9 +1,8 @@
 package com.evgenyrsk.shortfork.di
 
 import android.app.Application
-import com.evgenyrsk.core.di.CoreMiscModule
+import com.evgenyrsk.core.di.CorePresentationModule
 import com.evgenyrsk.core.di.CoreNetworkModule
-import com.evgenyrsk.feature.aggregator.di.AggregatorDependencies
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -11,9 +10,14 @@ import javax.inject.Singleton
 /**
  * @author Evgeny Rasskazov
  */
-@Component(modules = [CoreNetworkModule::class, CoreMiscModule::class])
 @Singleton
-interface ApplicationComponent : AggregatorDependencies {
+@Component(
+    modules = [
+        CoreNetworkModule::class,
+        CorePresentationModule::class
+    ]
+)
+interface ApplicationComponent {
 
     fun getApplication(): Application
 

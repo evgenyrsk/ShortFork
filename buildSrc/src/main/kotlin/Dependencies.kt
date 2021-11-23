@@ -32,6 +32,10 @@ object Dependencies {
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     }
 
+    object UiLibs {
+        const val compose = "androidx.compose.runtime:runtime:${Versions.composeVersion}"
+    }
+
     object NetworkLibs {
         const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
         const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"

@@ -2,9 +2,11 @@
  * @author Evgeny Rasskazov
  */
 object Versions {
+
     // app
     const val androidGradle = "7.0.2"
-    const val kotlin = "1.5.21"
+    const val kotlin = "1.5.31"
+    const val composeCompiler = "1.0.5"
 
     // core
     const val core = "1.3.2"
@@ -16,6 +18,7 @@ object Versions {
     const val navigation = "2.2.2"
     const val gson = "2.8.6"
     const val jsoup = "1.11.1"
+    const val composeVersion = "1.0.5"
 
     // network
     const val retrofit = "2.6.4"
@@ -25,7 +28,7 @@ object Versions {
     const val coroutines = "1.4.3"
 
     // di
-    const val dagger = "2.32"
+    const val dagger = "2.40.1"
 
     // test
     const val jUnit = "4.12"

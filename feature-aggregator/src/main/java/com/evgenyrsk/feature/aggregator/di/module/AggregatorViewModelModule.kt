@@ -15,24 +15,16 @@ import javax.inject.Qualifier
 @Module
 interface AggregatorViewModelModule {
 
-    @Binds
-    @Indicators
-    fun bindIndicatorsViewModelFactory(
-        factory: IndicatorsViewModelFactory
-    ): ViewModelAssistedFactory<IndicatorsViewModel>
+//    @Binds
+//    @Indicators
+//    fun indicatorsViewModelFactory(
+//        factory: IndicatorsViewModelFactory
+//    ): ViewModelAssistedFactory<IndicatorsViewModel>
 
     @Binds
-    @Aggregator
-    fun bindAggregatorViewModelFactoryFactory(
+    fun aggregatorViewModelFactory(
         factory: AggregatorViewModelFactory
     ): ViewModelAssistedFactory<AggregatorViewModel>
-
-    //    @Provides
-    //    fun bindAggregatorViewModelFactoryFactory(
-    //        useCase: GetShortDataUseCase
-    //    ): ViewModelAssistedFactory<AggregatorViewModel> {
-    //        return AggregatorViewModelFactory(useCase)
-    //    }
 }
 
 @Qualifier

@@ -1,5 +1,6 @@
 package com.evgenyrsk.feature.aggregator.di.module
 
+import com.evgenyrsk.core.di.CoreNetworkModule
 import com.evgenyrsk.feature.aggregator.data.AggregatorRepositoryImpl
 import com.evgenyrsk.feature.aggregator.data.remote.AggregatorRemoteDataSource
 import com.evgenyrsk.feature.aggregator.data.remote.RemoteDataSource
@@ -10,12 +11,12 @@ import dagger.Module
 /**
  * @author Evgeny Rasskazov
  */
-@Module
+@Module(includes = [CoreNetworkModule::class])
 interface AggregatorDataModule {
 
     @Binds
-    fun bindAggregatorRepository(impl: AggregatorRepositoryImpl): AggregatorRepository
+    fun aggregatorRepository(impl: AggregatorRepositoryImpl): AggregatorRepository
 
     @Binds
-    fun bindAggregatorRemoteDataSource(impl: AggregatorRemoteDataSource): RemoteDataSource
+    fun aggregatorRemoteDataSource(impl: AggregatorRemoteDataSource): RemoteDataSource
 }

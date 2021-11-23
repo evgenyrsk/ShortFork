@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
+    id("kotlin-parcelize")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
 }
 
@@ -32,12 +32,15 @@ android {
         viewBinding = true
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
+    }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -54,12 +57,14 @@ dependencies {
     implementation(Dependencies.CoreLibs.constraintLayout)
     implementation(Dependencies.CoreLibs.navigationFragment)
     implementation(Dependencies.CoreLibs.navigationUi)
-
     implementation(Dependencies.CoreLibs.gson)
     implementation(Dependencies.CoreLibs.coroutines)
+
     implementation(Dependencies.NetworkLibs.okHttp)
     implementation(Dependencies.NetworkLibs.retrofit)
     implementation(Dependencies.NetworkLibs.retrofitConverterGson)
+
+    implementation(Dependencies.UiLibs.compose)
 
     implementation(Dependencies.CoreLibs.dagger)
     kapt(Dependencies.CoreLibs.daggerCompiler)

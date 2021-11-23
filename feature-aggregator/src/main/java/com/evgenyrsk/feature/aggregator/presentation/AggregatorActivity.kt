@@ -2,6 +2,7 @@ package com.evgenyrsk.feature.aggregator.presentation
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -9,18 +10,23 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.evgenyrsk.core.di.CorePresentationModule
+import com.evgenyrsk.core.di.CoreNetworkModule
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ActivityMainBinding
 import com.evgenyrsk.feature.aggregator.databinding.SearchViewBinding
-import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
+import com.evgenyrsk.feature.aggregator.di.DaggerAggregatorComponent
+import com.evgenyrsk.feature.aggregator.di.module.AggregatorServiceModule
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
+import com.google.android.material.internal.TextWatcherAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.launchIn
@@ -38,7 +44,9 @@ class AggregatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AggregatorComponentHolder.get().inject(this)
+        DaggerAggregatorComponent.factory()
+            .create()
+            .inject(this)
 
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)
@@ -74,6 +82,12 @@ class AggregatorActivity : AppCompatActivity() {
     }
 
     private fun initSearchView(searchView: SearchViewBinding) {
+        searchView.enterTickerNameField.addTextChangedListener(object : TextWatcherAdapter() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                searchView.clearIcon.isInvisible = s.isEmpty()
+                //searchView.searchIcon.isVisible = s.isEmpty()
+            }
+        })
         searchView.enterTickerNameField.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val enteredTickerText = searchView.enterTickerNameField.text.toString()

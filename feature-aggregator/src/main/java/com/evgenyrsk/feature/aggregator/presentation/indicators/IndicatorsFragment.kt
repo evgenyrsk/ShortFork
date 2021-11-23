@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
+import com.evgenyrsk.core.presentation.mvi.viewmodel.ViewModelAssistedFactory
 import com.evgenyrsk.feature.aggregator.databinding.FragmentAggregatorBinding
-import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
+import com.evgenyrsk.feature.aggregator.di.DaggerAggregatorComponent
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorEffect
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModel
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModelFactory
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class IndicatorsFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: AggregatorViewModelFactory
+    lateinit var viewModelFactory: ViewModelAssistedFactory<AggregatorViewModel>
 
     private val viewModel: AggregatorViewModel by activityViewModels {
         GenericSavedStateViewModelFactory(viewModelFactory, requireActivity())
@@ -40,7 +41,9 @@ class IndicatorsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AggregatorComponentHolder.get().inject(this)
+        DaggerAggregatorComponent.factory()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

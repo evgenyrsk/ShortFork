@@ -1,3 +1,5 @@
+@file:Suppress("NonExhaustiveWhenStatementMigration")
+
 package com.evgenyrsk.feature.aggregator.presentation.indicators
 
 import androidx.lifecycle.SavedStateHandle
@@ -19,10 +21,10 @@ class IndicatorsViewModel(
     override fun createInitialState(): IndicatorsState = IndicatorsState(IndicatorsInfoState.Idle)
 
     override fun handleEvent(event: IndicatorsEvent) {
-        when (event) {
+        //when (event) {
             //is IndicatorsEvent.OnSubmitTickerButtonClicked ->
             //is IndicatorsEvent -> loadShortData(event.companyTicker)
-        }
+        //}
     }
 
     private fun loadShortData(companyTicker: String) {

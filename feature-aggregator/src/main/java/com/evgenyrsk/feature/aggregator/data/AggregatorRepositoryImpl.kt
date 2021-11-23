@@ -4,7 +4,6 @@ import com.evgenyrsk.core.data.ApiResponse
 import com.evgenyrsk.core.data.ErrorHandler
 import com.evgenyrsk.feature.aggregator.data.remote.*
 import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModel
-import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModelMapper
 import com.evgenyrsk.feature.aggregator.domain.AggregatorRepository
 import com.evgenyrsk.feature.aggregator.domain.Result
 import javax.inject.Inject
@@ -17,11 +16,9 @@ class AggregatorRepositoryImpl @Inject constructor(
     private val apiErrorHandler: ErrorHandler
 ) : AggregatorRepository {
 
-    private val mapper: AggregatorDomainModelMapper<AggregatorNetworkModel> by lazy { AggregatorDomainModelMapper() }
-
     override suspend fun getAllData(companyTicker: String): Result<AggregatorDomainModel> {
         return when (val response = remoteDataSource.getAllShortData(companyTicker)) {
-            is ApiResponse.Success -> Result.Success(mapper.map(response.data))
+            is ApiResponse.Success -> Result.Success(response.data.toDomainModel())
             is ApiResponse.Error -> Result.Error(apiErrorHandler.getError(response.exception))
         }
     }
