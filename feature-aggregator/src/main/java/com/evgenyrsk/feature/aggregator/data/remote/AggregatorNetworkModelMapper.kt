@@ -1,41 +1,52 @@
 package com.evgenyrsk.feature.aggregator.data.remote
 
-import com.evgenyrsk.feature.aggregator.domain.AggregatorDomainModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.AggregatorNetworkModel
+import com.evgenyrsk.feature.aggregator.domain.model.AggregatorDomainModel
+import com.evgenyrsk.feature.aggregator.domain.model.ChartDataDomainModel
+import com.evgenyrsk.feature.aggregator.domain.model.MainCompanyInfoDomainModel
+import com.evgenyrsk.feature.aggregator.domain.model.TechnicalIndicatorsDomainModel
 
 /**
  * @author Evgeny Rasskazov
  */
 fun AggregatorNetworkModel.toDomainModel(): AggregatorDomainModel {
     return AggregatorDomainModel(
-        mainCompanyInfo = AggregatorDomainModel.MainCompanyInfo(
+        mainCompanyInfo = MainCompanyInfoDomainModel(
             ticker = ticker,
-            name = finViz?.name ?: "",
-            siteUrl = finViz?.site ?: ""
+            name = finViz?.name,
+            siteUrl = finViz?.site
         ),
-        chartData = nakedShort?.chart?.first()?.let {
-            AggregatorDomainModel.ChartData(
-                overallVolumes = it.regularVolumes,
-                shortVolumes = it.shortVolumes,
-                dates = it.dates
-            )
-        },
-        technicalIndicators = AggregatorDomainModel.TechnicalIndicators(
-            priceInDollars = finViz?.price,
+        chartData = tightShort?.chart
+            ?.first()
+            ?.let { chart ->
+                ChartDataDomainModel(
+                    overallVolumes = chart.regularVolumes,
+                    shortVolumes = chart.shortVolumes,
+                    dates = chart.dates
+                )
+            },
+        technicalIndicators = TechnicalIndicatorsDomainModel(
             pe = finViz?.pe,
+            forwardPe = finViz?.forwardPe,
             ps = finViz?.ps,
             pb = finViz?.pb,
             peg = finViz?.peg,
             roe = finViz?.roe,
             roa = finViz?.roa,
-            rsi = finViz?.rsi,
             debtEq = finViz?.debtEq,
+            instOwn = finViz?.instOwn,
+            insiderOwn = finViz?.insiderOwn,
+            priceInDollars = finViz?.price,
             dividendsPercent = finViz?.dividendPercent,
-            currentNakedShortVolume = nakedShort?.currentShortVolume,
+            beta = finViz?.beta,
+            tightShortVolume = tightShort?.currentShortVolume,
             squeezeShortFloat = shortSqueeze?.shortFlow,
             finVizShortFloat = finViz?.shortFlow,
-            finVizRecommendation = finViz?.recommendation,
+            shortInterestRatio = finViz?.shortRatio,
             isAvailableOnTinkoff = isAvailableInTinkoff ?: false,
-            targetPriceUpside = finViz?.targetPrice
+            finVizRecommendation = finViz?.recommendation,
+            targetPriceUpside = finViz?.targetPrice,
+            rsi = finViz?.rsi
         )
     )
 }

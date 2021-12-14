@@ -14,11 +14,9 @@ import javax.inject.Singleton
  * @author Evgeny Rasskazov
  */
 @Module
-class CorePresentationModule {
+internal interface CorePresentationModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun appStringsProvider(application: Application): StringsProvider {
-        return AppStringsProvider(application)
-    }
+    fun appStringsProvider(impl: AppStringsProvider): StringsProvider
 }

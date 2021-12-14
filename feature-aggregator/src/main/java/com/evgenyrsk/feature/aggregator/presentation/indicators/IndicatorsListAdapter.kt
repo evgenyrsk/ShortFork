@@ -7,15 +7,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ItemIndicatorInfoBinding
-import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorItem
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorListItem
 
 /**
  * @author Evgeny Rasskazov
  */
-class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: IndicatorItem) -> Unit) :
-    ListAdapter<IndicatorItem, IndicatorsListAdapter.ViewHolder>(IndicatorItemDiffCallback()),
+class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: IndicatorListItem) -> Unit) :
+    ListAdapter<IndicatorListItem, IndicatorsListAdapter.ViewHolder>(IndicatorItemDiffCallback()),
     OnViewHolderClickListener<IndicatorsListAdapter.ViewHolder> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,27 +45,29 @@ class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: Indic
             }
         }
 
-        fun bindTo(item: IndicatorItem) {
+        fun bindTo(item: IndicatorListItem) {
             binding.name.text = item.name
             binding.value.text = item.readableValue
-
-            val colorId = when (item.colouredValueIndicator) {
-                IndicatorItem.Color.GOOD -> R.color.light_green_500
-                IndicatorItem.Color.NEUTRAL -> R.color.yellow_500
-                IndicatorItem.Color.BAD -> R.color.red_500
-            }
-            binding.valueColouredIndicator.setBackgroundColor(ContextCompat.getColor(itemView.context, colorId))
+            binding.valueColouredIndicator.setBackgroundColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    item.color.colorCode
+                )
+            )
         }
     }
 }
 
-class IndicatorItemDiffCallback : DiffUtil.ItemCallback<IndicatorItem>() {
+class IndicatorItemDiffCallback : DiffUtil.ItemCallback<IndicatorListItem>() {
 
-    override fun areItemsTheSame(oldItem: IndicatorItem, newItem: IndicatorItem): Boolean {
+    override fun areItemsTheSame(oldItem: IndicatorListItem, newItem: IndicatorListItem): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: IndicatorItem, newItem: IndicatorItem): Boolean {
+    override fun areContentsTheSame(
+        oldItem: IndicatorListItem,
+        newItem: IndicatorListItem
+    ): Boolean {
         return oldItem.name == newItem.name
     }
 }

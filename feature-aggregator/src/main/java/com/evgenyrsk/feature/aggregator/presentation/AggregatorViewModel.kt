@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
 import com.evgenyrsk.feature.aggregator.domain.GetShortDataUseCase
 import com.evgenyrsk.feature.aggregator.domain.Result
-import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsModelMapper
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsUiModelMapper
 import kotlinx.coroutines.launch
 
 /**
@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
  */
 class AggregatorViewModel(
     private val getShortDataUseCase: GetShortDataUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val mapToUiModel: IndicatorsUiModelMapper
 ) : BaseViewModel<AggregatorEvent, AggregatorState, AggregatorEffect>() {
-
-    private val mapper: IndicatorsModelMapper = IndicatorsModelMapper()
 
     override fun createInitialState(): AggregatorState = AggregatorState(IndicatorsInfoState.Idle)
 
@@ -34,11 +33,7 @@ class AggregatorViewModel(
                     setState {
                         copy(
                             indicatorsInfoState = IndicatorsInfoState.Loaded(
-                                mapper.toUiModel(
-                                    companyTicker,
-                                    result.data.mainCompanyInfo,
-                                    result.data.technicalIndicators
-                                )
+                                mapToUiModel(result.data)
                             )
                         )
                     }

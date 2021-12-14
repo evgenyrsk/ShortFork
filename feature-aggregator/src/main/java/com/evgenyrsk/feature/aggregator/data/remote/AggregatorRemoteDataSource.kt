@@ -1,6 +1,10 @@
 package com.evgenyrsk.feature.aggregator.data.remote
 
 import com.evgenyrsk.core.data.ApiResponse
+import com.evgenyrsk.feature.aggregator.data.remote.model.AggregatorNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.FinVizNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.TightShortsNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.ShortSqueezeNetworkModel
 import retrofit2.HttpException
 import retrofit2.Response
 import javax.inject.Inject
@@ -20,7 +24,7 @@ class AggregatorRemoteDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getNakedShortData(companyTicker: String): ApiResponse<NakedShortNetworkModel> {
+    override suspend fun getNakedShortData(companyTicker: String): ApiResponse<TightShortsNetworkModel> {
         return try {
             service.getNakedShortData(companyTicker).toApiResponse()
         } catch (e: HttpException) {

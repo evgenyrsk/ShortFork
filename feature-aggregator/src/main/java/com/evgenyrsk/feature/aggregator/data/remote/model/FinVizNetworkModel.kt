@@ -1,14 +1,35 @@
-package com.evgenyrsk.feature.aggregator.data.remote
+package com.evgenyrsk.feature.aggregator.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * @author Evgeny Rasskazov
+ */
 data class FinVizNetworkModel(
+
+    @SerializedName("beta")
+    val beta: Double?,
+
+    @SerializedName("country")
+    val country: String?,
 
     @SerializedName("debteq")
     val debtEq: Double?,
 
     @SerializedName("dividend_percent")
     val dividendPercent: Double?,
+
+    @SerializedName("exchange")
+    val exchange: String?,
+
+    @SerializedName("forwardPe")
+    val forwardPe: Double?,
+
+    @SerializedName("insiderOwn")
+    val insiderOwn: Double?,
+
+    @SerializedName("instOwn")
+    val instOwn: Double?,
 
     @SerializedName("name")
     val name: String,
@@ -42,6 +63,9 @@ data class FinVizNetworkModel(
 
     @SerializedName("short_flow")
     val shortFlow: Double?,
+
+    @SerializedName("shortRatio")
+    val shortRatio: Double?,
 
     @SerializedName("site")
     val site: String?,

@@ -4,7 +4,7 @@ import com.evgenyrsk.core.di.CoreNetworkModule
 import com.evgenyrsk.feature.aggregator.data.AggregatorRepositoryImpl
 import com.evgenyrsk.feature.aggregator.data.remote.AggregatorRemoteDataSource
 import com.evgenyrsk.feature.aggregator.data.remote.RemoteDataSource
-import com.evgenyrsk.feature.aggregator.domain.AggregatorRepository
+import com.evgenyrsk.feature.aggregator.domain.repository.AggregatorRepository
 import dagger.Binds
 import dagger.Module
 

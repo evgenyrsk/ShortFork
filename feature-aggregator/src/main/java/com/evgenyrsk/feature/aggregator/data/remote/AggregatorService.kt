@@ -1,5 +1,9 @@
 package com.evgenyrsk.feature.aggregator.data.remote
 
+import com.evgenyrsk.feature.aggregator.data.remote.model.AggregatorNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.FinVizNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.TightShortsNetworkModel
+import com.evgenyrsk.feature.aggregator.data.remote.model.ShortSqueezeNetworkModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,7 +21,7 @@ interface AggregatorService {
     @GET("/stocks/nakedshort")
     suspend fun getNakedShortData(
         @Query(value = "ticker") ticker: String
-    ): Response<NakedShortNetworkModel>
+    ): Response<TightShortsNetworkModel>
 
     @GET("/stocks/finviz")
     suspend fun getFinVizData(

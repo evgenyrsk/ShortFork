@@ -16,9 +16,12 @@ import javax.inject.Singleton
         AggregatorDomainModule::class,
         AggregatorServiceModule::class,
         AggregatorViewModelModule::class
+    ],
+    dependencies = [
+        AggregatorDependencies::class
     ]
 )
-internal interface AggregatorComponent {
+interface AggregatorComponent {
 
     fun inject(activity: AggregatorActivity)
 
@@ -26,6 +29,9 @@ internal interface AggregatorComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(): AggregatorComponent
+
+        fun create(
+            dependencies: AggregatorDependencies
+        ): AggregatorComponent
     }
 }

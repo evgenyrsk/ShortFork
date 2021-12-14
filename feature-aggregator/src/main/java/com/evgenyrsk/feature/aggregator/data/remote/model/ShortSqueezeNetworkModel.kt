@@ -1,9 +1,9 @@
-package com.evgenyrsk.feature.aggregator.data.remote
+package com.evgenyrsk.feature.aggregator.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
 data class ShortSqueezeNetworkModel(
 
     @SerializedName("short_flow")
-    val shortFlow: Double
+    val shortFlow: Double?
 )

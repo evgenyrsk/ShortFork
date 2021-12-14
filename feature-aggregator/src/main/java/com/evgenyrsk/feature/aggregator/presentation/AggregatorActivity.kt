@@ -2,7 +2,6 @@ package com.evgenyrsk.feature.aggregator.presentation
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -17,14 +16,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.evgenyrsk.core.di.CorePresentationModule
-import com.evgenyrsk.core.di.CoreNetworkModule
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ActivityMainBinding
 import com.evgenyrsk.feature.aggregator.databinding.SearchViewBinding
-import com.evgenyrsk.feature.aggregator.di.DaggerAggregatorComponent
-import com.evgenyrsk.feature.aggregator.di.module.AggregatorServiceModule
+import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
 import com.google.android.material.internal.TextWatcherAdapter
 import com.google.android.material.tabs.TabLayout
@@ -44,9 +40,7 @@ class AggregatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAggregatorComponent.factory()
-            .create()
-            .inject(this)
+        AggregatorComponentHolder.getComponent().inject(this)
 
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)
@@ -60,8 +54,8 @@ class AggregatorActivity : AppCompatActivity() {
                     companyInfoBlock.isVisible = true
                     //                    companyInfoBlock.animate().alpha(1.0f)
                     val resultModel = state.indicatorsInfoState.model
-                    companyName.text = resultModel.companyName
-                    companySite.text = resultModel.companySiteUrl
+                    companyName.text = resultModel.companyInfo.name
+                    companySite.text = resultModel.companyInfo.siteUrl
                 }
             }.launchIn(lifecycleScope)
         }
