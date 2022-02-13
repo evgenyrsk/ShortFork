@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="feature-aggregator/src/main/res/drawable/ic_delete_24.xml" value="0.22760416666666666" />
+        <entry key="feature-aggregator/src/main/res/drawable/ic_info_24.xml" value="0.2685" />
         <entry key="feature-aggregator/src/main/res/layout-v23/search_view.xml" value="0.28125" />
         <entry key="feature-aggregator/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
         <entry key="feature-aggregator/src/main/res/layout/fragment_aggregator.xml" value="0.28125" />
-        <entry key="feature-aggregator/src/main/res/layout/search_view.xml" value="0.4795388704775644" />
+        <entry key="feature-aggregator/src/main/res/layout/fragment_chart.xml" value="0.2749094202898551" />
+        <entry key="feature-aggregator/src/main/res/layout/item_indicator_info.xml" value="0.45" />
+        <entry key="feature-aggregator/src/main/res/layout/search_view.xml" value="0.1" />
       </map>
     </option>
   </component>

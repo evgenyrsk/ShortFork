@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/background"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:paddingHorizontal="8dp"
-    android:paddingVertical="4dp">
+    android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_rectangle_rounded"
         android:elevation="1dp"
         android:paddingHorizontal="16dp">
 
@@ -26,7 +24,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Target" />
+            tools:text="RSI" />
 
         <ImageView
             android:id="@+id/help_icon"
@@ -43,24 +41,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:paddingHorizontal="16dp"
             android:paddingVertical="16dp"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/value_coloured_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/help_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="25.5" />
-
-        <View
-            android:id="@+id/value_coloured_indicator"
-            android:layout_width="6dp"
-            android:layout_height="0dp"
-            android:layout_marginVertical="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/value"
-            tools:background="@color/red_500" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

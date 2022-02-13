@@ -1,6 +1,7 @@
 package com.evgenyrsk.core.di
 
 import android.app.Application
+import com.evgenyrsk.core.di.base.DataComponentHolder
 
 /**
  * @author Evgeny Rasskazov

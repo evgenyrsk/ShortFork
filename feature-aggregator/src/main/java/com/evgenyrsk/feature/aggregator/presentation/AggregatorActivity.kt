@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +22,7 @@ import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ActivityMainBinding
 import com.evgenyrsk.feature.aggregator.databinding.SearchViewBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
+import com.evgenyrsk.feature.aggregator.presentation.chart.ChartFragment
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
 import com.google.android.material.internal.TextWatcherAdapter
 import com.google.android.material.tabs.TabLayout
@@ -50,9 +52,9 @@ class AggregatorActivity : AppCompatActivity() {
             companyInfoBlock.isVisible = false
             viewModel.uiState.onEach { state ->
                 if (state.indicatorsInfoState is IndicatorsInfoState.Loaded) {
-                    //                    companyInfoBlock.alpha = 0.0f
+                    companyInfoBlock.alpha = 0.0f
                     companyInfoBlock.isVisible = true
-                    //                    companyInfoBlock.animate().alpha(1.0f)
+                    companyInfoBlock.animate().alpha(1.0f)
                     val resultModel = state.indicatorsInfoState.model
                     companyName.text = resultModel.companyInfo.name
                     companySite.text = resultModel.companyInfo.siteUrl
@@ -76,12 +78,9 @@ class AggregatorActivity : AppCompatActivity() {
     }
 
     private fun initSearchView(searchView: SearchViewBinding) {
-        searchView.enterTickerNameField.addTextChangedListener(object : TextWatcherAdapter() {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                searchView.clearIcon.isInvisible = s.isEmpty()
-                //searchView.searchIcon.isVisible = s.isEmpty()
-            }
-        })
+        searchView.enterTickerNameField.addTextChangedListener {
+            searchView.clearIcon.isInvisible = it?.isEmpty() ?: false
+        }
         searchView.enterTickerNameField.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val enteredTickerText = searchView.enterTickerNameField.text.toString()
@@ -90,6 +89,9 @@ class AggregatorActivity : AppCompatActivity() {
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
+        }
+        searchView.clearIcon.setOnClickListener {
+            searchView.enterTickerNameField.text.clear()
         }
     }
 
@@ -116,7 +118,7 @@ class AggregatorActivity : AppCompatActivity() {
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> IndicatorsFragment()
-                else -> Fragment()
+                else -> ChartFragment()
             }
         }
 

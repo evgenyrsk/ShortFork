@@ -1,4 +1,4 @@
-package com.evgenyrsk.core.di
+package com.evgenyrsk.core.di.base
 
 import androidx.annotation.WorkerThread
 

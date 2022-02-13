@@ -33,19 +33,19 @@ object IndicatorItemHelper {
     }
 }
 
-abstract class IndicatorItemColorDeterminant(
-    private val bestValueRange: ClosedFloatingPointRange<Double>,
-    private val dangerValueRange: ClosedFloatingPointRange<Double>,
-    private val normalValueRange: ClosedFloatingPointRange<Double> =
-        Double.MAX_VALUE.rangeTo(Double.MAX_VALUE)
-) {
-
-    fun determineColor(indicatorValue: Double): IndicatorListItem.Color {
-        return when (indicatorValue) {
-            in bestValueRange -> IndicatorListItem.Color.BEST
-            in dangerValueRange -> IndicatorListItem.Color.DANGER
-            in normalValueRange -> IndicatorListItem.Color.NORMAL
-            else -> IndicatorListItem.Color.DEFAULT
-        }
-    }
-}
+//abstract class IndicatorItemColorDeterminant(
+//    private val bestValueRange: ClosedFloatingPointRange<Double>,
+//    private val dangerValueRange: ClosedFloatingPointRange<Double>,
+//    private val normalValueRange: ClosedFloatingPointRange<Double> =
+//        Double.MAX_VALUE.rangeTo(Double.MAX_VALUE)
+//) {
+//
+//    fun determineColor(indicatorValue: Double): IndicatorListItem.Color {
+//        return when (indicatorValue) {
+//            in bestValueRange -> IndicatorListItem.Color.BEST
+//            in dangerValueRange -> IndicatorListItem.Color.DANGER
+//            in normalValueRange -> IndicatorListItem.Color.NORMAL
+//            else -> IndicatorListItem.Color.DEFAULT
+//        }
+//    }
+//}

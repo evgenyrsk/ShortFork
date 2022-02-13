@@ -17,7 +17,7 @@ data class IndicatorListItem(
         BEST(R.color.light_green_500),
         NORMAL(R.color.blue_700),
         DANGER(R.color.red_b00020),
-        DEFAULT(R.color.blue_100)
+        DEFAULT(R.color.text_primary)
     }
 
     class Hint(

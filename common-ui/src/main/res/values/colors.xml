@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary">@color/white</color>
-    <color name="primary_variant">@color/light_green_500</color>
-    <color name="secondary">@color/burgundy_600</color>
-    <color name="secondary_variant">@color/burgundy_600</color>
+    <color name="primary">@color/grey_424242</color>
+    <color name="primary_variant">@color/grey_1b1b1b</color>
+    <color name="secondary">@color/deep_orange_ffccbc</color>
+    <color name="secondary_variant">@color/deep_orange_cb9b8c</color>
     <color name="background">@color/white</color>
     <color name="surface">@color/white</color>
     <color name="error">@color/red_b00020</color>

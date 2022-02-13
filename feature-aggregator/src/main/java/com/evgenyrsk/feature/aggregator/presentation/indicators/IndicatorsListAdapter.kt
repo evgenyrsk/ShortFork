@@ -48,7 +48,7 @@ class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: Indic
         fun bindTo(item: IndicatorListItem) {
             binding.name.text = item.name
             binding.value.text = item.readableValue
-            binding.valueColouredIndicator.setBackgroundColor(
+            binding.value.setTextColor(
                 ContextCompat.getColor(
                     itemView.context,
                     item.color.colorCode

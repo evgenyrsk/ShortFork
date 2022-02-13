@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@color/light_green_500"
         android:elevation="4dp"
         android:fitsSystemWindows="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +50,7 @@
                         android:paddingVertical="8dp"
                         android:paddingStart="16dp"
                         android:text="@string/company_site"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/on_primary"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -60,14 +59,13 @@
 
                     <TextView
                         android:id="@+id/company_site"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autoLink="web"
                         android:paddingVertical="8dp"
                         android:paddingEnd="16dp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/on_primary"
                         android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/company_site_title"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="RtlSymmetry"
@@ -80,7 +78,7 @@
                         android:paddingVertical="8dp"
                         android:paddingStart="16dp"
                         android:text="@string/company_name"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/on_primary"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:paddingVertical="8dp"
                         android:paddingEnd="16dp"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/on_primary"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/company_name_title"
@@ -113,8 +111,8 @@
             android:background="@color/transparent"
             app:layout_collapseMode="pin"
             app:tabGravity="center"
-            app:tabIndicatorColor="@color/black"
-            app:tabTextColor="@color/text_primary" />
+            app:tabIndicatorColor="@color/on_primary"
+            app:tabTextColor="@color/on_primary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

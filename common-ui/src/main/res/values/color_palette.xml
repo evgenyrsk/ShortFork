@@ -9,7 +9,12 @@
 
     <color name="burgundy_600">#D02374</color>
 
+    <color name="deep_orange_ffccbc">#ffccbc</color>
+    <color name="deep_orange_cb9b8c">#cb9b8c</color>
+
     <color name="gray_50">#FAFAFA</color>
+    <color name="grey_424242">#424242</color>
+    <color name="grey_1b1b1b">#1b1b1b</color>
 
     <color name="light_green_500">#8BC34A</color>
 
