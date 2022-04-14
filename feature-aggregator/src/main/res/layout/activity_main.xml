@@ -7,119 +7,81 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:elevation="4dp"
-        android:fitsSystemWindows="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            android:layout_height="?actionBarSize"
+            android:animateLayoutChanges="true"
+            android:elevation="4dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/company_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="20sp"
+                    android:visibility="invisible"
+                    tools:text="SAMSUNG" />
 
                 <include
                     android:id="@+id/search_view"
                     layout="@layout/search_view"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/company_info_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_collapseMode="parallax">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="16dp"
+                    android:fitsSystemWindows="true"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/company_site_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="8dp"
-                        android:paddingStart="16dp"
-                        android:text="@string/company_site"
-                        android:textColor="@color/on_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlSymmetry" />
+            </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/company_site"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autoLink="web"
-                        android:paddingVertical="8dp"
-                        android:paddingEnd="16dp"
-                        android:textColor="@color/on_primary"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@id/company_site_title"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlSymmetry"
-                        tools:text="http://www.nokia.com" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-                    <TextView
-                        android:id="@+id/company_name_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="8dp"
-                        android:paddingStart="16dp"
-                        android:text="@string/company_name"
-                        android:textColor="@color/on_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/company_site"
-                        tools:ignore="RtlSymmetry" />
-
-                    <TextView
-                        android:id="@+id/company_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="8dp"
-                        android:paddingEnd="16dp"
-                        android:textColor="@color/on_primary"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/company_name_title"
-                        app:layout_constraintTop_toBottomOf="@id/company_site"
-                        tools:ignore="RtlSymmetry"
-                        tools:text="Nokia Corporation" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="@color/transparent"
-            app:layout_collapseMode="pin"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/on_primary"
-            app:tabTextColor="@color/on_primary" />
+            android:layout_height="match_parent" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        app:hideOnScroll="true"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_navigation_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/search_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_search_black_24dp"
+        app:layout_anchor="@id/bottom_navigation"
+        app:layout_anchorGravity="end"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

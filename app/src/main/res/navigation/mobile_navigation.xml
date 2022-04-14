@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_indicators">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_indicators"
         android:name="com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_indicators"
         tools:layout="@layout/fragment_aggregator" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.evgenyrsk.shortfork.ui.dashboard.DashboardFragment"
-        android:label="@string/title_details"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_description"
+        android:name="com.evgenyrsk.feature.aggregator.presentation.description.CompanyDescriptionFragment"
+        android:label="@string/title_company"
+        tools:layout="@layout/fragment_chart" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.evgenyrsk.shortfork.ui.notifications.NotificationsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_chart"
+        android:name="com.evgenyrsk.feature.aggregator.presentation.chart.ChartFragment"
+        android:label="@string/title_analysis"
+        tools:layout="@layout/fragment_company_description" />
 </navigation>

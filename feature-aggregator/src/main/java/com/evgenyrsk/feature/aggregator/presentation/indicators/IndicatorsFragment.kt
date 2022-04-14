@@ -12,10 +12,8 @@ import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelF
 import com.evgenyrsk.core.presentation.mvi.viewmodel.ViewModelAssistedFactory
 import com.evgenyrsk.feature.aggregator.databinding.FragmentAggregatorBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
-import com.evgenyrsk.feature.aggregator.di.DaggerAggregatorComponent
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorEffect
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModel
-import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModelFactory
 import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -45,7 +43,11 @@ class IndicatorsFragment : Fragment() {
         AggregatorComponentHolder.getComponent().inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAggregatorBinding.inflate(inflater)
         return binding.root
     }
@@ -86,5 +88,9 @@ class IndicatorsFragment : Fragment() {
                 }
             }
         }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        fun newInstance(): IndicatorsFragment = IndicatorsFragment()
     }
 }

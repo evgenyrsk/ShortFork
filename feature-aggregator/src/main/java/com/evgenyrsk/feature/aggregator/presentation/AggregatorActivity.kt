@@ -14,19 +14,18 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.feature.aggregator.R
 import com.evgenyrsk.feature.aggregator.databinding.ActivityMainBinding
 import com.evgenyrsk.feature.aggregator.databinding.SearchViewBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.chart.ChartFragment
+import com.evgenyrsk.feature.aggregator.presentation.description.CompanyDescriptionFragment
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
-import com.google.android.material.internal.TextWatcherAdapter
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsUiModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -39,25 +38,44 @@ class AggregatorActivity : AppCompatActivity() {
     private val viewModel: AggregatorViewModel by viewModels {
         GenericSavedStateViewModelFactory(viewModelFactory, this)
     }
+    private val viewBinding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AggregatorComponentHolder.getComponent().inject(this)
 
-        with(ActivityMainBinding.inflate(layoutInflater)) {
+        with(viewBinding) {
             setContentView(root)
             initSearchView(searchView)
-            initViewPagerWithTabs(viewPager, tabs)
 
-            companyInfoBlock.isVisible = false
+            bottomNavigation.setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.navigation_description -> {
+                        openScreen(CompanyDescriptionFragment.newInstance())
+                        true
+                    }
+                    R.id.navigation_indicators -> {
+                        openScreen(IndicatorsFragment.newInstance())
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            searchFab.setOnClickListener {
+                hideCompanyName()
+                showSearchView(withKeyboard = true)
+            }
+            companyName.isVisible = false
             viewModel.uiState.onEach { state ->
+                if (state.indicatorsInfoState is IndicatorsInfoState.Loading) {
+                    viewBinding.searchView.enterTickerNameField.hideKeyboardAndClearFocus()
+                }
                 if (state.indicatorsInfoState is IndicatorsInfoState.Loaded) {
-                    companyInfoBlock.alpha = 0.0f
-                    companyInfoBlock.isVisible = true
-                    companyInfoBlock.animate().alpha(1.0f)
-                    val resultModel = state.indicatorsInfoState.model
-                    companyName.text = resultModel.companyInfo.name
-                    companySite.text = resultModel.companyInfo.siteUrl
+                    hideSearchView(withKeyboard = false)
+                    showCompanyName(state.indicatorsInfoState.model)
                 }
             }.launchIn(lifecycleScope)
         }
@@ -70,7 +88,7 @@ class AggregatorActivity : AppCompatActivity() {
                 val outRect = Rect()
                 v.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
-                    hideKeyboardAndClearFocus(v)
+                    hideSearchView(withKeyboard = true)
                 }
             }
         }
@@ -81,11 +99,11 @@ class AggregatorActivity : AppCompatActivity() {
         searchView.enterTickerNameField.addTextChangedListener {
             searchView.clearIcon.isInvisible = it?.isEmpty() ?: false
         }
-        searchView.enterTickerNameField.setOnEditorActionListener { v, actionId, _ ->
+        searchView.enterTickerNameField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val enteredTickerText = searchView.enterTickerNameField.text.toString()
                 viewModel.setEvent(AggregatorEvent.OnSubmitTickerButtonClicked(enteredTickerText))
-                hideKeyboardAndClearFocus(v as EditText)
+                viewBinding.searchView.enterTickerNameField.hideKeyboardAndClearFocus()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -95,20 +113,78 @@ class AggregatorActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPagerWithTabs(viewPager: ViewPager2, tabLayout: TabLayout) {
-        viewPager.adapter = ViewPagerFragmentAdapter(this)
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.setText(R.string.tab_technical_indicators)
-                1 -> tab.setText(R.string.tab_technical_analysis)
+    private fun hideSearchView(withKeyboard: Boolean = false) = with(viewBinding.searchView) {
+        root.animate()
+            .alpha(0.0f)
+            .withEndAction {
+                root.isInvisible = true
+                viewBinding.companyName.isVisible = true
+                if (withKeyboard) {
+                    enterTickerNameField.hideKeyboardAndClearFocus()
+                }
+                setFabEnabled(isEnabled = true)
             }
-        }.attach()
+            .start()
     }
 
-    private fun hideKeyboardAndClearFocus(editText: EditText) {
-        editText.clearFocus()
+    private fun showSearchView(withKeyboard: Boolean = false) = with(viewBinding.searchView) {
+        root.alpha = 0.0f
+        root.animate()
+            .alpha(1.0f)
+            .withStartAction {
+                viewBinding.companyName.isVisible = false
+                root.isVisible = true
+                setFabEnabled(isEnabled = false)
+            }
+            .withEndAction {
+                if (withKeyboard) {
+                    enterTickerNameField.showKeyboardAndRequestFocus()
+                }
+            }
+            .start()
+    }
+
+    private fun showCompanyName(model: IndicatorsUiModel) {
+        with(viewBinding.companyName) {
+            alpha = 0.0f
+            animate()
+                .withStartAction {
+                    isVisible = true
+                    text = model.companyInfo.name
+                }
+                .alpha(1.0f)
+                .start()
+        }
+    }
+
+    private fun hideCompanyName() {
+        with(viewBinding.companyName) {
+            animate()
+                .alpha(0.0f)
+                .withEndAction { isVisible = false }
+                .start()
+        }
+    }
+
+    private fun setFabEnabled(isEnabled: Boolean) {
+        viewBinding.searchFab.isEnabled = isEnabled
+    }
+
+    private fun openScreen(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container, fragment)
+        }
+    }
+
+    private fun EditText.hideKeyboardAndClearFocus() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
+        imm.hideSoftInputFromWindow(windowToken, 0)
+        clearFocus()
+    }
+
+    private fun EditText.showKeyboardAndRequestFocus() {
+        requestFocus()
+        (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, 0)
     }
 
     class ViewPagerFragmentAdapter(host: FragmentActivity) : FragmentStateAdapter(host) {

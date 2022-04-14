@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ShortFork</string>
-    <string name="title_home">Home</string>
-    <string name="title_details">Details</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_company">Компания</string>
+    <string name="title_indicators">Индикаторы</string>
+    <string name="title_analysis">Анализ</string>
 
     <string name="tab_technical_indicators">Индикаторы</string>
     <string name="tab_shorts_chart">Шорт</string>
