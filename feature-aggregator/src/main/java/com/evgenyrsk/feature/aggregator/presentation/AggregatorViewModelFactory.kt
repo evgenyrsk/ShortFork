@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * @author Evgeny Rasskazov
  */
-class AggregatorViewModelFactory @Inject constructor(
+internal class AggregatorViewModelFactory @Inject constructor(
     private val getShortDataUseCase: GetShortDataUseCase,
     private val mapToUiModel: IndicatorsUiModelMapper
 ) : ViewModelAssistedFactory<AggregatorViewModel> {

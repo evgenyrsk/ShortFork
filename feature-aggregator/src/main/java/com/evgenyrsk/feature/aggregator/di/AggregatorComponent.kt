@@ -21,7 +21,7 @@ import javax.inject.Singleton
         AggregatorDependencies::class
     ]
 )
-interface AggregatorComponent {
+internal interface AggregatorComponent {
 
     fun inject(activity: AggregatorActivity)
 

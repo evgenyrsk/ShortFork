@@ -5,16 +5,16 @@ package com.evgenyrsk.feature.aggregator.presentation.indicators
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
-import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsEffect
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsEvent
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsState
 import kotlinx.coroutines.launch
 
 /**
  * @author Evgeny Rasskazov
  */
-class IndicatorsViewModel(
+internal class IndicatorsViewModel(
     private val stateHandle: SavedStateHandle
 ) : BaseViewModel<IndicatorsEvent, IndicatorsState, IndicatorsEffect>() {
 

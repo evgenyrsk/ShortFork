@@ -1,17 +1,13 @@
 package com.evgenyrsk.feature.aggregator.presentation
 
 import com.evgenyrsk.core.presentation.mvi.UiState
-import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsUiModel
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
 
 /**
  * @author Evgeny Rasskazov
  */
-data class AggregatorState(
+internal data class AggregatorState(
     val indicatorsInfoState: IndicatorsInfoState
 ) : UiState
 
-sealed class IndicatorsInfoState {
-    object Idle : IndicatorsInfoState()
-    object Loading : IndicatorsInfoState()
-    data class Loaded(val model: IndicatorsUiModel) : IndicatorsInfoState()
-}
+

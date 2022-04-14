@@ -8,13 +8,16 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.evgenyrsk.core.presentation.mvi.MviView
 import com.evgenyrsk.core.presentation.mvi.viewmodel.GenericSavedStateViewModelFactory
 import com.evgenyrsk.core.presentation.mvi.viewmodel.ViewModelAssistedFactory
 import com.evgenyrsk.feature.aggregator.databinding.FragmentAggregatorBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorEffect
+import com.evgenyrsk.feature.aggregator.presentation.AggregatorState
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModel
-import com.evgenyrsk.feature.aggregator.presentation.IndicatorsInfoState
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
+import com.evgenyrsk.feature.aggregator.presentation.indicators.recycler.IndicatorsListAdapter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -22,7 +25,7 @@ import javax.inject.Inject
 /**
  * @author Evgeny Rasskazov
  */
-class IndicatorsFragment : Fragment() {
+internal class IndicatorsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelAssistedFactory<AggregatorViewModel>

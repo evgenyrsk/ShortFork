@@ -5,13 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.evgenyrsk.core.presentation.mvi.viewmodel.BaseViewModel
 import com.evgenyrsk.feature.aggregator.domain.GetShortDataUseCase
 import com.evgenyrsk.feature.aggregator.domain.Result
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsUiModelMapper
 import kotlinx.coroutines.launch
 
 /**
  * @author Evgeny Rasskazov
  */
-class AggregatorViewModel(
+internal class AggregatorViewModel(
     private val getShortDataUseCase: GetShortDataUseCase,
     private val savedStateHandle: SavedStateHandle,
     private val mapToUiModel: IndicatorsUiModelMapper

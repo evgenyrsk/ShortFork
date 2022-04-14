@@ -1,5 +1,5 @@
 include(":app")
-include(":common-ui")
+include(":core-ui")
 include(":core")
 include(":core-android")
 include(":feature-aggregator")

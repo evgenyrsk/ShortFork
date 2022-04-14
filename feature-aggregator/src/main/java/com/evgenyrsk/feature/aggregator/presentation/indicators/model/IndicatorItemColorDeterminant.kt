@@ -1,5 +1,7 @@
 package com.evgenyrsk.feature.aggregator.presentation.indicators.model
 
+import com.evgenyrsk.feature.aggregator.presentation.indicators.recycler.IndicatorColor
+
 
 /**
  * @author Evgeny Rasskazov
@@ -14,38 +16,21 @@ object IndicatorItemHelper {
         dangerValueRange: ClosedFloatingPointRange<Double>,
         normalValueRange: ClosedFloatingPointRange<Double> =
             Double.MAX_VALUE.rangeTo(Double.MAX_VALUE)
-    ): IndicatorListItem.Color {
-        this ?: return IndicatorListItem.Color.DEFAULT
+    ): IndicatorColor {
+        this ?: return IndicatorColor.DEFAULT
         return when (this) {
-            in bestValueRange -> IndicatorListItem.Color.BEST
-            in dangerValueRange -> IndicatorListItem.Color.DANGER
-            in normalValueRange -> IndicatorListItem.Color.NORMAL
-            else -> IndicatorListItem.Color.DEFAULT
+            in bestValueRange -> IndicatorColor.BEST
+            in dangerValueRange -> IndicatorColor.DANGER
+            in normalValueRange -> IndicatorColor.NORMAL
+            else -> IndicatorColor.DEFAULT
         }
     }
 
-    internal fun Boolean?.determineColor(): IndicatorListItem.Color {
+    internal fun Boolean?.determineColor(): IndicatorColor {
         return if (this == true) {
-            IndicatorListItem.Color.BEST
+            IndicatorColor.BEST
         } else {
-            IndicatorListItem.Color.DANGER
+            IndicatorColor.DANGER
         }
     }
 }
-
-//abstract class IndicatorItemColorDeterminant(
-//    private val bestValueRange: ClosedFloatingPointRange<Double>,
-//    private val dangerValueRange: ClosedFloatingPointRange<Double>,
-//    private val normalValueRange: ClosedFloatingPointRange<Double> =
-//        Double.MAX_VALUE.rangeTo(Double.MAX_VALUE)
-//) {
-//
-//    fun determineColor(indicatorValue: Double): IndicatorListItem.Color {
-//        return when (indicatorValue) {
-//            in bestValueRange -> IndicatorListItem.Color.BEST
-//            in dangerValueRange -> IndicatorListItem.Color.DANGER
-//            in normalValueRange -> IndicatorListItem.Color.NORMAL
-//            else -> IndicatorListItem.Color.DEFAULT
-//        }
-//    }
-//}

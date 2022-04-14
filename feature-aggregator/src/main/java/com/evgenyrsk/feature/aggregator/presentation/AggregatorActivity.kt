@@ -25,12 +25,13 @@ import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.chart.ChartFragment
 import com.evgenyrsk.feature.aggregator.presentation.description.CompanyDescriptionFragment
 import com.evgenyrsk.feature.aggregator.presentation.indicators.IndicatorsFragment
+import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsUiModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-class AggregatorActivity : AppCompatActivity() {
+internal class AggregatorActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: AggregatorViewModelFactory

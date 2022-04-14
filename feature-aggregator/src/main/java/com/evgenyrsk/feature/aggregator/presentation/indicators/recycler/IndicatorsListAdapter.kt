@@ -1,4 +1,4 @@
-package com.evgenyrsk.feature.aggregator.presentation.indicators
+package com.evgenyrsk.feature.aggregator.presentation.indicators.recycler
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.evgenyrsk.feature.aggregator.databinding.ItemIndicatorInfoBinding
-import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorListItem
+import com.evgenyrsk.feature.aggregator.presentation.indicators.OnViewHolderClickListener
 
 /**
  * @author Evgeny Rasskazov
  */
-class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: IndicatorListItem) -> Unit) :
+internal class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: IndicatorListItem) -> Unit) :
     ListAdapter<IndicatorListItem, IndicatorsListAdapter.ViewHolder>(IndicatorItemDiffCallback()),
     OnViewHolderClickListener<IndicatorsListAdapter.ViewHolder> {
 
@@ -47,18 +47,18 @@ class IndicatorsListAdapter(private val indicatorHelpClickListener: (item: Indic
 
         fun bindTo(item: IndicatorListItem) {
             binding.name.text = item.name
-            binding.value.text = item.readableValue
+            binding.value.text = item.value.toHumanReadable()
             binding.value.setTextColor(
                 ContextCompat.getColor(
                     itemView.context,
-                    item.color.colorCode
+                    item.value.color.code
                 )
             )
         }
     }
 }
 
-class IndicatorItemDiffCallback : DiffUtil.ItemCallback<IndicatorListItem>() {
+internal class IndicatorItemDiffCallback : DiffUtil.ItemCallback<IndicatorListItem>() {
 
     override fun areItemsTheSame(oldItem: IndicatorListItem, newItem: IndicatorListItem): Boolean {
         return oldItem == newItem

@@ -13,7 +13,7 @@ import javax.inject.Qualifier
  * @author Evgeny Rasskazov
  */
 @Module
-interface AggregatorViewModelModule {
+internal interface AggregatorViewModelModule {
 
 //    @Binds
 //    @Indicators

@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * @author Evgeny Rasskazov
  */
-class IndicatorsViewModelFactory @Inject constructor() : ViewModelAssistedFactory<IndicatorsViewModel> {
+internal class IndicatorsViewModelFactory @Inject constructor() : ViewModelAssistedFactory<IndicatorsViewModel> {
 
     override fun create(handle: SavedStateHandle): IndicatorsViewModel = IndicatorsViewModel(handle)
 }
