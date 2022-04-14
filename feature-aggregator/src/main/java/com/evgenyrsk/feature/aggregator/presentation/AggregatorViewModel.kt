@@ -23,6 +23,11 @@ internal class AggregatorViewModel(
     override fun handleEvent(event: AggregatorEvent) {
         when (event) {
             is AggregatorEvent.OnSubmitTickerButtonClicked -> loadShortData(event.companyTicker)
+            is AggregatorEvent.OnIndicatorItemClicked -> setEffect {
+                AggregatorEffect.ShowToast(
+                    event.hint.description
+                )
+            }
         }
     }
 
@@ -40,7 +45,7 @@ internal class AggregatorViewModel(
                     }
                 is Result.Error -> {
                     setState { copy(indicatorsInfoState = IndicatorsInfoState.Idle) }
-                    setEffect { AggregatorEffect.ShowToast }
+                    setEffect { AggregatorEffect.ShowToast(result.exception.toString()) }
                 }
             }
         }

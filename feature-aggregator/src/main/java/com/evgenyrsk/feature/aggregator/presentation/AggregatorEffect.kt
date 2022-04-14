@@ -5,6 +5,6 @@ import com.evgenyrsk.core.presentation.mvi.UiEffect
 /**
  * @author Evgeny Rasskazov
  */
-sealed class AggregatorEffect : UiEffect {
-    object ShowToast : AggregatorEffect()
+internal sealed class AggregatorEffect : UiEffect {
+    class ShowToast(val text: String) : AggregatorEffect()
 }

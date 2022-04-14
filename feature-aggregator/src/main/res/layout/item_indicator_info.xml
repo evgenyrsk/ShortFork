@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:background="?attr/selectableItemBackground"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -29,10 +29,11 @@
         <ImageView
             android:id="@+id/help_icon"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="16dp"
             android:paddingHorizontal="16dp"
             android:src="@drawable/ic_info_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/name"
             app:layout_constraintTop_toTopOf="parent" />
 

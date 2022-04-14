@@ -14,6 +14,7 @@ import com.evgenyrsk.core.presentation.mvi.viewmodel.ViewModelAssistedFactory
 import com.evgenyrsk.feature.aggregator.databinding.FragmentAggregatorBinding
 import com.evgenyrsk.feature.aggregator.di.AggregatorComponentHolder
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorEffect
+import com.evgenyrsk.feature.aggregator.presentation.AggregatorEvent
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorState
 import com.evgenyrsk.feature.aggregator.presentation.AggregatorViewModel
 import com.evgenyrsk.feature.aggregator.presentation.indicators.model.IndicatorsInfoState
@@ -35,7 +36,7 @@ internal class IndicatorsFragment : Fragment() {
     }
     private val recyclerAdapter: IndicatorsListAdapter by lazy {
         IndicatorsListAdapter { indicatorItem ->
-            Toast.makeText(requireContext(), indicatorItem.name, Toast.LENGTH_SHORT).show()
+            viewModel.handleEvent(AggregatorEvent.OnIndicatorItemClicked(indicatorItem.hint))
         }
     }
 
@@ -57,9 +58,7 @@ internal class IndicatorsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.recycler.adapter = recyclerAdapter
-
         initObservers()
     }
 
@@ -85,7 +84,7 @@ internal class IndicatorsFragment : Fragment() {
                     binding.progressBar.hide()
                     Toast.makeText(
                         this@IndicatorsFragment.requireContext(),
-                        "ERROR",
+                        effect.text,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

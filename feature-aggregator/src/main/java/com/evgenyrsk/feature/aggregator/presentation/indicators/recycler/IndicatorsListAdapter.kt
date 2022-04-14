@@ -38,7 +38,7 @@ internal class IndicatorsListAdapter(private val indicatorHelpClickListener: (it
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.helpIcon.setOnClickListener {
+            binding.root.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     viewHolderClickListener.onViewHolderClick(it, this)
                 }
